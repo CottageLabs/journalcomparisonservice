@@ -1,0 +1,11 @@
+.nav-wrapper {
+    .nav.nav-tabs {
+        @media screen and (max-width: $breakpoint-mobile) {
+            @include typescale-04;
+        }
+        .nav-link.active {
+            background-color: $background-secondary;
+        }
+    }
+
+}

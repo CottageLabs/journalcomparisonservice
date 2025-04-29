@@ -1,0 +1,29 @@
+{% extends "layouts/fullscreen.html" %}
+
+{% block title %} Error 403 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+
+    <main>
+        <section class="d-flex align-items-center justify-content-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center d-flex align-items-center justify-content-center">
+                        <div>
+                            <!--<img class="img-fluid w-75" src="/static/assets/img/illustrations/403.svg" alt="403 not authorised">-->
+                            <h1 class="mt-5">Access <span class="fw-bolder text-primary">denied</span></h1>
+                            <p class="lead my-4">Please contact support if you think this is a mistake.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

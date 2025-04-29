@@ -1,0 +1,173 @@
+{% extends "coalitions/dashboard.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Approve/Reject User {% endblock %}
+
+{% block block_middle %}
+    <div id="details">
+        <form method="post" id="publisher_form" xmlns="http://www.w3.org/1999/html">
+            {% csrf_token %}
+            <div class="input-group">
+                <label for="email">
+                    Email
+                    <span id="copy_email" aria-label="copy email address" class="icon icon--primary far fa-copy"></span>
+                    <span id="email_copied" style="display: none">
+                        <span class="icon icon--success far fa-check"></span><i>Email address copied!</i>
+                    </span>
+                </label>
+                <input type="text" name="email" id="email" value="{{ puser.email }}">
+                <span class="errortext">{{user_form.email.errors}}</span>
+            </div>
+            <div class="input-group error">
+                <label >Full name</label>
+                <input type="text" name="name" id="name" value="{{ puser.name }}">
+                <span class="errortext">{{user_form.name.errors}}</span>
+            </div>
+            <div class="input-group">
+                <label>Mobile Number</label>
+                {{ user_form.phone }}
+                <span class="errortext">{{user_form.phone.errors}}</span>
+            </div>
+            <h2 class="block_title">Publisher Information</h2>
+            <div class="input-group">
+                <label >Publisher Name</label>
+                {{ form.publisher_name }}
+                <span class="errortext">{{form.publisher_name.errors}}</span>
+            </div>
+            <div class="input-group">
+                <label>Name of the person who will sign Legal Agreement with ESF, on behalf of publisher</label>
+                {{ form.esf_name }}
+                <span class="errortext">{{form.esf_name.errors}}</span>
+            </div>
+            <div class="input-group">
+                <label>Email address of a person at the publisher who can sign the JCS legal agreement with ESF, who are providing this service on behalf of cOAlition S
+                    <span id="copy_email_esf" aria-label="copy email address" class="icon icon--primary far fa-copy"></span>
+                    <span id="esf_email_copied" style="display: none">
+                        <span class="icon icon--success far fa-check"></span><i>Email address copied!</i>
+                    </span>
+                </label>
+                {{ form.esf_email }}
+                <span class="errortext">{{form.esf_email.errors}}</span>
+            </div>
+            <div class="input-group">
+                <label for="address_first_line">First line of the address</label>
+                {{ form.postal_address1 }}
+                <span class="errortext">{{form.postal_address1.errors}}</span>
+                <label for="address_second_line">Second line of the address</label>
+                {{ form.postal_address2 }}
+                <span class="errortext">{{form.postal_address2.errors}}</span>
+                <label for="address_third_line">Third line of the address</label>
+                {{ form.postal_address3 }}
+                <span class="errortext">{{form.postal_address3.errors}}</span>
+                <label for="address_postcode">Postcode</label>
+                {{ form.postcode }}
+                <span class="errortext">{{form.postcode.errors}}</span>
+                <label for="address_town">City/Town</label>
+                {{ form.city }}
+                <span class="errortext">{{form.city.errors}}</span>
+                <label for="address_country">Country</label>
+                {{ form.country }}
+                <span class="errortext">{{form.country.errors}}</span>
+            </div>
+            <div class="input-group">
+                <label for="url">Publisher home page URL</label>
+                {{ form.url }}
+                <span class="errortext">{{form.url.errors}}</span>
+            </div>
+            <div class="input-group">
+                <label for="journal">Example of a journal you publish</label>
+                {{ form.journal }}
+                <span class="errortext">{{form.journal.errors}}</span>
+            </div>
+            <div class="input-group">
+                <label for="issn">ISSN or e-ISSN</label>
+                {{ form.issn }}
+                <span class="errortext">{{form.issn.errors}}</span>
+            </div>
+            <p>For the journal indicated above, please select which services index this journal.<br />Select as many services as appropriate.</p>
+            <div class="input-group input-group--checkbox">
+                {% for field in form.services %}
+                    <div>{{ field }}</div>
+                {% endfor %}
+                {{ form.services_other }}
+                <span class="errortext">{{form.services.errors}}</span>
+            </div>
+            <div class="input-group input-group--radio" id="which-platform" style="display: none;">
+                <p>Which platform your journal is indexed by?</p>
+                {% for field in form.inasp_journals %}
+                    <div>{{ field }}</div>
+                {% endfor %}
+                <span class="errortext">{{form.inasp_journals.errors}}</span>
+            </div>
+            <p>Are you a member of COPE?</p>
+            <div class="input-group input-group--radio input-group--radio--horizontal">
+                {% for field in form.member_of_cope %}
+                    <div>{{ field }}</div>
+                {% endfor %}
+                <span class="errortext">{{form.member_of_cope.errors}}</span>
+            </div>
+            <div class="input-group input-group--radio">
+                <label for="member_of_publisher_trade_body">Are you a member of a Publisher Trade body?</label>
+                <div class="input-group--radio--horizontal">
+                    {% for field in form.member_of_publisher_trade_body %}
+                        <div>{{ field }}</div>
+                    {% endfor %}
+                    <span class="errortext">{{form.member_of_publisher_trade_body.errors}}</span>
+                </div>
+            </div>
+            <div class="input-group input-group--checkbox" id="which-trade-body" style="display: none;">
+                <label for="cope_details">Please specify:</label>
+                {% for field in form.trade_bodies %}
+                    <div>{{ field }}</div>
+                {% endfor %}
+                {{ form.trade_bodies_other }}
+                <span class="errortext">{{ form.trade_bodies.errors }}</span>
+            </div>
+        </form>
+    </div>
+
+    <div id="files_list" style="display: none">
+        {% with title="List of files of this publisher" %}
+            {% include 'includes/list_files.html' %}
+        {% endwith %}
+    </div>
+
+{% endblock block_middle %}
+
+{% block block_right %}
+    <button type="submit" name="save" class="btn btn-primary" form="publisher_form"><span class="fa fa-upload"></span>Save changes</button>
+    <form method="post" id="form-actions">
+        {% csrf_token %}
+        {# Need to add this hidden field so that phone will be saved when saving user #}
+        <input type="hidden" name="phone" value="{{ puser.phone }}">
+        <button type="button" name="deactivate_user" class="btn btn-error" id="deactivate_user"><span class="fas fa-trash"></span>Deactivate</button>
+    </form>
+
+    {% include 'includes/show_details_or_files.html' %}
+
+    <div class="modal" id="reject_confirmation" style="display:none">
+        <div class="modal-background">
+            <div class="modal-content">
+                <div class="modal-title">
+                    <h2><span class="fa fa-times close_modal"></span></h2>
+                    <h2>After this action, Publisher Admin '<i>{{ puser.name }}</i>' will lose access to the JCS.</h2>
+                </div>
+                <p>Do you want to continue?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ activation.management_form }}
+                    <button type="submit" name="deactivate" class="btn btn-success" form="form-actions"><span class="fas fa-check"></span>Yes, continue.</button>
+                    <button type="button" name="cancel" class="btn btn-error close_modal"><span class="fas fa-ban"></span>No, cancel this operation.</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title">
+            <span>Quick Tip</span>
+            <span><span class="far fa-lightbulb"></span></span>
+        </div>
+        <p>Click on the email icon next to the email address to copy it!</p>
+    </div>
+{% endblock block_right %}

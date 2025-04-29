@@ -1,0 +1,23 @@
+.registration_confirmation {
+    margin: auto;
+    position: relative;
+    p.contact_link {
+        position: absolute;
+        bottom: .5rem;
+        right: 1rem;
+    }
+    .qr_code {
+        margin: 2rem 0;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.publisher_name {
+    color: $primary;
+}
+
+.phone-input {
+    display: flex;
+    flex-direction: column;
+}

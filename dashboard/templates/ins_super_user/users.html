@@ -1,0 +1,79 @@
+{% extends "layouts/3_column.html" %}
+{% load i18n %}
+
+{% block title %} Users {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_left %}
+    <div class="shaded">
+        <a href="/dashboard/s_ins/generate" class="btn btn-secondary">Invite new End User</a>
+        <div id="active_users">
+            {% if approved_users %}
+                <table class="users">
+                    <tr>
+                        <th>
+                            <h2>{% trans 'Approved Users' %}</h2>
+                        </th>
+                    </tr>
+                    {% for user in approved_users %}
+                        <tr>
+                            <td onclick="location.href='/dashboard/s_ins/approvedusers/{{ user.id }}'" id="user__{{ user.id }}-tabel" {% if auser.id == user.id %} class="active" {% endif %}>
+                                {{ user.name }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            {% if approve_awaiting_users %}
+                <table class="users">
+                    <tr>
+                        <th>
+                            <h2>{% trans 'Awaiting approval' %}</h2>
+                        </th>
+                    </tr>
+                    {% for user in approve_awaiting_users %}
+                        <tr>
+                            <td onclick="location.href='/dashboard/s_ins/awaitingusers/{{ user.id }}'" id="user__{{ user.id }}-tabel" {% if auser.id == user.id %} class="active" {% endif %}>
+                                {{ user.name }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+        {#    <button type="button" onclick="myFunction()">Show Rejected Users</button>#}
+        {#    <div id="archive" style="display: none">#}
+        {% if archived_users %}
+            <table class="users">
+                <tr>
+                    <th>
+                        <h2>{% trans 'Rejected Users' %}</h2>
+                    </th>
+                </tr>
+                {% for user in archived_users %}
+                    <tr>
+                        <td onclick="location.href='/dashboard/s_ins/archived_user/{{ user.id }}/'" {% if auser.id == user.id %} class="active" {% endif %}>
+                            {{ user.name }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {#         </div>#}
+        {% endif %}
+    </div>
+{% endblock block_left %}
+
+{% block block_middle %}
+
+{% endblock block_middle %}
+
+{% block block_right %}
+{% endblock block_right %}
+
+{% block javascripts %}
+    <script src="/static/assets/js/superpublisher_dashboard.js"></script>
+{% endblock javascripts %}
+

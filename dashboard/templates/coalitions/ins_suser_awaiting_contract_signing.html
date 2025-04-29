@@ -1,0 +1,41 @@
+{% extends "coalitions/ins_suser_awaiting_approval.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Approve/Reject User {% endblock %}
+
+{% block block_right %}
+    <button type="submit" name="save" class="btn btn-primary" form="publisher_form"><span class="fa fa-upload"></span>Save changes</button>
+    <form method="post" id="form-actions">
+        {# Need to add this hidden field so that phone will be saved when saving user #}
+        <input type="hidden" name="phone" value="{{ puser.phone }}">
+        {% csrf_token %}
+        <button type="submit" name="approve" class="btn btn-success"><span class="fas fa-check"></span>Approve User</button>
+        <button type="button" name="reject_user" class="btn btn-error" id="deactivate_user"><span class="fas fa-trash"></span>Reject User</button>
+    </form>
+
+    <div class="d-grid mb-4">
+        <button type="button" name="user_details" class="btn btn-primary" id="show_user_details"  style="display: none"><span class="far fa-user"></span>Show user's details</button>
+    </div>
+
+    <div class="modal" id="reject_confirmation" style="display:none">
+        <div class="modal-background">
+            <div class="modal-content">
+                <h2><span class="fa fa-times close_modal"></span></h2>
+                <h2>After this action, User '<i>{{ puser.name }}</i>' will lose access to the JCS.</h2>
+                <p>Do you want to continue?</p>
+                    {% csrf_token %}
+                    <div class="d-grid mb-4">
+                        <button type="submit" name="reject" class="btn btn-success" form="form-actions"><span class="fas fa-check"></span>Yes, continue.</button>
+                        <button type="button" name="cancel" class="btn btn-error close_modal"><span class="fas fa-ban"></span>No, cancel this operation.</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+     <div class="card">
+        <div class="card-title">
+            <span>Quick Tip</span>
+            <span class="far fa-lightbulb"></span>
+        </div>
+        <p>Click on the email icon next to the email address to copy it!</p>
+    </div>
+{% endblock block_right %}

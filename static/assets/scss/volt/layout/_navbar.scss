@@ -1,0 +1,58 @@
+/**
+ * = Navigation bars
+ */
+
+.navbar {
+    align-items: center;
+    &-brand {
+        white-space: unset;
+    }
+    &-text {
+        padding: 0;
+    }
+    &-bg {
+        .navbar-nav {
+            float: right;
+        }
+        margin: $spacing-05 0;
+        h1, h2, h3 {
+            color: $dark;
+        }
+        h4 {
+            margin-bottom: $spacing-03;
+        }
+
+        .primary {
+            color: $primary;
+        }
+
+        .links {
+            flex-direction: row-reverse;
+
+            a.nav-link {
+                // font-style: normal;
+                font-weight: normal;
+                padding-right: $spacing-04;
+                padding-left: $spacing-04;
+                //font-size: 2rem;
+                //line-height: 30px;
+                text-decoration: none;
+                min-width: max-content;
+
+                &:focus:not(.logo), &:hover:not(.logo), .dropdown:hover .dropbtn {
+                    color: $primary;
+                }
+            }
+
+            .active {
+                border-bottom: $primary solid 2px;
+                color: $primary;
+            }
+        }
+    }
+}
+
+.navbar-toggler {
+    margin-top: $spacing-04;
+    width: 100vw;
+}

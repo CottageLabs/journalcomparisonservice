@@ -1,0 +1,43 @@
+{% extends "layouts/2_column.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Account Search {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/js/vendor/edges/vendor/bootstrap-3.3.1/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/assets/js/vendor/edges/css/bs3.PagerRenderer.css">
+    <link rel="stylesheet" href="/static/assets/js/vendor/edges/css/bs3.RefiningANDTermSelectorRenderer.css">
+    <link rel="stylesheet" href="/static/assets/js/vendor/edges/css/bs3.Facetview.css">
+    <link rel="stylesheet" href="/static/assets/js/vendor/edges/css/bs3.FullSearchControllerRenderer.css">
+    <link rel="stylesheet" href="/static/assets/js/vendor/edges/css/bs3.SelectedFiltersRenderer.css">
+{% endblock stylesheets %}
+
+{% block content %}
+    <div id="account_search"></div>
+{% endblock content %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/edges.jquery.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/es7x.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/edges.js"></script>
+
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/components/selectors.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/components/search.js"></script>
+    <script type="text/javascript" src="/static/assets/js/pstf.SelectedFiltersRenderer.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/renderers/bs3.PagerRenderer.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/renderers/bs3.RefiningANDTermSelectorRenderer.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/templates/bs3.Facetview.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/renderers/bs3.FullSearchControllerRenderer.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/renderers/bs3.SelectedFiltersRenderer.js"></script>
+
+    <script type="text/javascript" src="/static/assets/js/account.search.js?v={{ VERSION }}"></script>
+
+    {% csrf_token %}
+
+    <script type="text/javascript">
+        $( document ).ready(function($) {
+            accountSearch.init();
+        });
+    </script>
+
+{% endblock javascripts %}

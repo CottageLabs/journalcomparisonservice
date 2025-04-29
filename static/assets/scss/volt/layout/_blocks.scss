@@ -1,0 +1,145 @@
+
+.block {
+
+    padding: $spacing-03 $spacing-04;
+
+    &_left {
+        min-height: 100%;
+    }
+
+    &_middle {
+        min-height: 100%;
+    }
+
+    &_right {
+        min-height: 100%;
+    }
+
+    &_side {
+        min-height: 100%;
+        position: sticky;
+    }
+
+    &_filters {
+        min-height: unset;
+        height: unset;
+        &_input {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &_main {
+        min-height: 100%;
+        height: 100%;
+        overflow-y: scroll;
+    }
+
+    &_tile {
+        position: absolute;
+        left: 15vw;
+        .banner-message {           // workaround for wrong place of banner in html - TODO: move messages to correct place in fullscreen.html and remove from all templates using it.
+            padding-left: 0;
+            padding-right: 0;
+        }
+        @media screen and (max-width: $breakpoint-mobile) {
+            top: 0;
+            left: -.5vw;
+        }
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            &--warning {
+                color: $error
+            }
+
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            background-color: $white;
+            margin: auto;
+            min-width: 80vw;
+            max-height: 85vh;
+            width: 45vw;
+            min-height: 80vh;
+            position: absolute;
+            top: 10%;
+            border: 4px solid $primary;
+            padding: $spacing-06 $spacing-03 $spacing-04 $spacing-03;
+            color: $dark;
+            //font-size: small;
+            justify-content: space-evenly;
+
+            @media screen and (max-width: $breakpoint-mobile) {
+                padding: $spacing-05 $spacing-03 $spacing-02 $spacing-03;
+                min-width: 95vw;
+                width: 95vw;
+                top: 5vw;
+                min-height: 90vh;
+                height: 90vh;
+            }
+
+            .content {
+                display: flex;
+                flex-direction: column;
+                max-height: 100%;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                padding-right: $spacing-01;
+
+                @media screen and (max-width: $breakpoint-mobile) {
+                    margin-top: 2rem;
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+            .JCS-name {
+                width: 100vw;
+                font-weight: 600;
+                @include typescale-01;
+                line-height: 3.8rem;
+
+                color: $white;
+                position: absolute;
+                bottom: -.5rem;
+                left: 0;
+
+                transform: rotate(270deg);
+                transform-origin: 0 4rem;
+                @media screen and (max-width: $breakpoint-mobile) {
+                    display: none;
+                }
+            }
+
+            .home {
+                position: absolute;
+                top: $spacing-04;
+                left: $spacing-04;
+                height: 2rem;
+                width: 2rem;
+                filter: invert(58%) sepia(78%) saturate(755%) hue-rotate(345deg) brightness(101%) contrast(91%);
+            }
+
+            #coalition_s_logo {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                height: 5rem;
+                width: auto;
+            }
+
+
+        }
+    }
+
+
+}
+
+
+

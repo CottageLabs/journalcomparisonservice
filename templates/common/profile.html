@@ -1,0 +1,39 @@
+{% extends "layouts/2_column.html" %}
+{% load i18n %}
+
+{% block title %} Profile {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block block_main %}
+    <h2>Your Profile</h2>
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="input-group">
+            <label for="name">Full name</label>
+            <input type="text" name="name" id="name" disabled value="{{ user.title }} &nbsp;{{ user.name }}">
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" disabled value="{{ user.email }}">
+        </div>
+
+        <div class="input-group">
+            <label for="phone">Mobile number</label>
+            {{form.phone}}
+            <span class="helptext">The mobile number you provide here will be the number where the 2nd factor authentication code is sent to. Please ensure that the number given has been entered correctly.</span>
+            <span class="errortext">{{form.phone.errors}}</span>
+        </div>
+
+        <button type="submit" name="_continue" class="btn btn-primary"><span class="fas fa-check"></span> Submit</button>
+    </form>
+    <p>Read our <a class="navlink navlink--bold" href="/docs/about_us/uap" target="_blank">Acceptable Usage Policy</a>.</p>
+{% endblock block_main %}
+
+{% block block_side %}
+{% endblock block_side %}

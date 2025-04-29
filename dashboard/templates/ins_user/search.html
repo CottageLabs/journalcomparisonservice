@@ -1,0 +1,64 @@
+{% extends 'layouts/2_column.html' %}
+{% block title %} Search {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/static/assets/js/vendor/edges/css/bs3.PagerRenderer.css">
+{% endblock stylesheets %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col block" id="data-download">
+            <button class="btn btn-primary" id="download-by-issn">Download by ISSN</button>
+            <a id="download_everything" class="btn btn-primary">Download all publisher data</a>
+            <a class="btn btn-primary" id="tabs-4-tab" href="/dashboard/publishers" role="link">List all participating publishers</a>
+        </div>
+    </div>
+    <div class="row" id="download-by-issn-content" style="display:none">
+        <div class="col block">
+            <div class="input-group">
+                <label for="fullname">Enter comma separated ISSNs to download</label>
+                <input type="text" id="issns_list" value="">
+            </div>
+            <button type="submit" name="submit" id="download_issn_data" class="btn btn-primary btn-primary--short"><span class="fas fa-download"></span>Download entered ISSN data</button>
+        </div>
+    </div>
+    <div class="row" id="inst_user_search">Loading search...</div>
+{% endblock content %}
+
+
+{% block javascripts %}
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/edges.jquery.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/es7x.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/edges.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/clinput/clinput2.js"></script>
+
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/components/selectors.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/components/search.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/renderers/html5.AddFieldFilterWithCLInput.js"></script>
+    <script type="text/javascript" src="/static/assets/js/pstf.SelectedFiltersRenderer.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/renderers/bs3.PagerRenderer.js"></script>
+
+    <script type="text/javascript" src="/static/assets/js/search.js"></script>
+    <script type="text/javascript" src="/static/assets/js/download.js"></script>
+
+    {% csrf_token %}
+
+    <script type="text/javascript">
+        $( document ).ready(function($) {
+            search.init();
+            $("#download_everything").on("click", function (e) {
+                download.triggerDownload({all: true});
+            })
+
+            $("#download_issn_data").on("click", function() {
+                issn_list = $("#issns_list").val()
+                if(issn_list !== ""){
+                    download.triggerDownload({
+                        issns: issn_list
+                    })
+                }
+            })
+        });
+    </script>
+
+{% endblock javascripts %}

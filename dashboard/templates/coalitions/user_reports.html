@@ -1,0 +1,35 @@
+{% extends "layouts/1_column.html" %}
+{% load i18n %}
+{% block title %} User Report {% endblock %}
+
+{% block block_main %}
+<a href="/dashboard/download_user_report/" class="btn btn-secondary btn-short" id="download_user_report">Download as csv</a>
+<table class="report">
+    <tr>
+        <th>{% trans 'Country' %}</th>
+        <th>{% trans 'Total Publishers' %}</th>
+        <th>{% trans 'Publisher Users' %}</th>
+        <th>{% trans 'Of which Publisher Super Users' %}</th>
+        <th>{% trans 'Total Institutions' %}</th>
+        <th>{% trans 'Institutional Users' %}</th>
+        <th>{% trans 'Of which Institutional Super Users' %}</th>
+    </tr>
+    {% for country, values in data.items %}
+        <tr>
+            <td>{{ country }}</td>
+            <td>{{ values.publishers }}</td>
+            <td>{{ values.pub_users }}</td>
+            <td>{{ values.pub_super_users }}</td>
+            <td>{{ values.institutions }}</td>
+            <td>{{ values.ins_users }}</td>
+            <td>{{ values.ins_supers_users }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock block_main %}
+
+{% block  block_side %}
+{% endblock block_side %}
+
+{% block javascripts %}
+{% endblock javascripts %}

@@ -1,0 +1,22 @@
+#data-download {
+    .btn {
+        width: max-content;
+        @media screen and (max-width: $breakpoint-mobile) {
+            width: 100%;
+        }
+    }
+}
+
+#filter-add {
+    div {
+        position: relative;
+        flex-grow: 2;
+    }
+    button {
+        width: max-content;
+    }
+    select {
+        padding: 0.9rem $spacing-03; // workaround: even out height of select and input
+    }
+
+}

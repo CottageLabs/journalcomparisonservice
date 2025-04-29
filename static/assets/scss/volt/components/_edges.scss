@@ -1,0 +1,26 @@
+#filter-add {
+    @extend .input-group;
+    display: inline-flex;
+    column-gap: $spacing-03;
+}
+
+.edges-html5-addfieldfilterwithclinput {
+    &-add {
+        @extend .btn;
+        @extend .btn-primary;
+        width: max-content;
+        z-index: 0 !important;
+        @media screen and (max-width: $breakpoint-mobile) {
+            width: 100%;
+        }
+    }
+    &-remove {
+        @extend .btn;
+        @extend .btn-error;
+        width: max-content;
+        z-index: 0 !important;
+        @media screen and (max-width: $breakpoint-mobile) {
+            width: 100%;
+        }
+    }
+}

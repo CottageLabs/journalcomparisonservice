@@ -1,0 +1,240 @@
+{% extends "layouts/3_column.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend dashboard_tags %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block block_left %}
+
+    <div class="nav-wrapper">
+        <ul class="nav nav-tabs" id="tabs-text" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link {% if user_type == None or user_type == 'Publisher' %}active{% endif %}" id="tabs-1-tab" data-bs-toggle="tab" href="#tabs-1" role="tab" aria-controls="tabs-1" aria-selected="true">Publisher Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if user_type == 'Institutional' %}active{% endif %}" id="tabs-2-tab" data-bs-toggle="tab" href="#tabs-2" role="tab" aria-controls="tabs-2" aria-selected="false">Institutional Users</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="tabcontent1">
+        <div id="tabs-1"  class="tab-pane fade {% if user_type == 'Publisher' %}show active{% endif %}" role="tabpanel" aria-labelledby="tabs-1-tab">
+            <div id="active_users" class="shaded">
+                {% if not approved_users and not approve_awaiting_users and not archived_users  and not awaiting_contract_signing_users%}
+                    <table class="users">
+                        <tr>
+                            <th>
+                                <h2>{% trans 'Approved Users' %}</h2>
+                            </th>
+                        </tr>
+                    </table>
+                {% else %}
+                    {% if approved_users %}
+                        <table class="users">
+                            <tr>
+                                <th>
+                                    <h2>{% trans 'Approved Users' %}</h2>
+                                </th>
+                            </tr>
+                            {% for user in approved_users %}
+                                <tr>
+                                    <td id="user__{{ user.id }}-tabel" {% if puser.id == user.id %} class="active" {% endif %}>
+                                        <a href="/dashboard/coalitions/approvedusers/{{ user.id }}">
+                                            <div class="info">
+                                                <h4>{{ user.publisher.publisher_name }}</h4>
+                                                <p> admin: <i>{{ user.name }}</i><br />
+                                                application submitted: <i>{{ user.created }}</i></p>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+
+                    {% if approve_awaiting_users %}
+                        <table class="users">
+                            <tr>
+                                <th>
+                                    <h2>{% trans 'Awaiting Review' %}</h2>
+                                </th>
+                            </tr>
+                            {% for user in approve_awaiting_users %}
+                                <tr>
+                                    <td id="user__{{ user.id }}-tabel" {% if puser.id == user.id %} class="active" {% endif %}>
+                                        <a href="/dashboard/coalitions/awaitingusers/{{ user.id }}">
+                                            <div class="info">
+                                                <h4>{{ user.publisher.publisher_name }}</h4>
+                                                <p>admin: <i>{{ user.name }}</i><br />
+                                                application submitted: <i>{{ user.created }}</i></p>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+                    {% if awaiting_contract_signing_users %}
+                        <table class="users">
+                            <tr>
+                                <th>
+                                    <h2>{% trans 'Awaiting Contract Signing' %}</h2>
+                                </th>
+                            </tr>
+                            {% for user in awaiting_contract_signing_users %}
+                                <tr>
+                                    <td id="user__{{ user.id }}-tabel" {% if puser.id == user.id %} class="active" {% endif %}>
+                                        <a href="/dashboard/coalitions/awaitingusers/{{ user.id }}">
+                                            <div class="info">
+                                                <h4>{{ user.publisher.publisher_name }}</h4>
+                                                <p>admin: <i>{{ user.name }}</i><br/>
+                                                application submitted: <i>{{ user.created }}</i></p>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+                    {#    <button type="button" onclick="myFunction()">Show Rejected Users</button>#}
+                    {#    <div id="archive" style="display: none">#}
+                    {% if archived_users %}
+                        <table class="users">
+                            <tr>
+                                <th>
+                                    <h2>{% trans 'Rejected Users' %}</h2>
+                                </th>
+                            </tr>
+                            {% for user in archived_users %}
+                                <tr>
+
+                                    <td id="user__{{ user.id }}-tabel" {% if puser.id == user.id %} class="active" {% endif %}>
+                                        <a href="/dashboard/coalitions/archived_user/{{ user.id }}">
+                                            <div class="info">
+                                                <h4>{{ user.publisher.publisher_name }}</h4>
+                                                <p>admin: <i>{{ user.name }}</i><br />
+                                                application submitted: <i>{{ user.created }}</i></p>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        {#         </div>#}
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div id="tabs-2" class="tab-pane fade {% if user_type == 'Institutional' %}show active{% endif %}" role="tabpanel" aria-labelledby="tabs-2-tab">
+            <div id="active_users" class="shaded">
+                {% if approved_ins_users %}
+                    <table class="users">
+                        <tr>
+                            <th>
+                                <h2>{% trans 'Approved Users' %}</h2>
+                            </th>
+                        </tr>
+                        {% for user in approved_ins_users %}
+                            <tr>
+                                <td id="user__{{ user.id }}-tabel" {% if puser.id == user.id %} class="active" {% endif %}>
+                                    <a href="/dashboard/coalitions/approved_ins_users/{{ user.id }}">
+                                        <div class="info">
+                                            <h4>{{ user.organisation.organisation_name }}</h4>
+                                            <p>admin: <i>{{ user.name }}</i><br/>
+                                            application submitted: <i>{{ user.created }}</i></p>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+
+                {% if approve_awaiting_ins_users %}
+                    <table class="users">
+                        <tr>
+                            <th>
+                                <h2>{% trans 'Awaiting Review' %}</h2>
+                            </th>
+                        </tr>
+                        {% for user in approve_awaiting_ins_users %}
+                            <tr>
+                                <td id="user__{{ user.id }}-tabel" {% if puser.id == user.id %} class="active" {% endif %}>
+                                    <a href="/dashboard/coalitions/awaiting_ins_users/{{ user.id }}">
+                                        <div style="height:100%;width:100%" class="info">
+                                            <h4>{{ user.organisation.organisation_name }}</h4>
+                                            <p>admin: <i>{{ user.name }}</i><br />
+                                            application submitted: <i>{{ user.created }}</i></p>
+                                        </div>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+
+                {% if awaiting_contract_signing_ins_users %}
+                    <table class="users">
+                        <tr>
+                            <th>
+                                <h2>{% trans 'Awaiting Contract Signing' %}</h2>
+                            </th>
+                        </tr>
+                        {% for user in awaiting_contract_signing_ins_users %}
+                            <tr>
+                                <td id="user__{{ user.id }}-tabel" {% if puser.id == user.id %} class="active" {% endif %}>
+                                    <a href="/dashboard/coalitions/awaiting_ins_users/{{ user.id }}">
+                                        <div style="height:100%;width:100%" class="info">
+                                            <h4>{{ user.organisation.organisation_name }}</h4>
+                                            <p>admin: <i>{{ user.name }}</i><br />
+                                            application submitted: <i>{{ user.created }}</i></p>
+                                        </div>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+                {% if archived_ins_users %}
+                    <table class="users">
+                        <tr>
+                            <th>
+                                <h2>{% trans 'Rejected Users' %}</h2>
+                            </th>
+                        </tr>
+                        {% for user in archived_ins_users %}
+                            <tr>
+                                <td id="user__{{ user.id }}-tabel" {% if puser.id == user.id %} class="active" {% endif %}>
+                                    <a href="/dashboard/coalitions/archived_ins_users/{{ user.id }}/">
+                                        <div class="info">
+                                            <h4>{{ user.organisation.organisation_name }}</h4>
+                                            <p>admin: <i>{{ user.name }}</i><br />
+                                            application submitted: <i>{{ user.created }}</i></p>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {#         </div>#}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'includes/delete_file.html' %}
+
+{% endblock block_left %}
+
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script src="/static/assets/js/coalitions_dashboard.js"></script>
+    <script src="/static/assets/js/registration.js"></script>
+{% endblock javascripts %}

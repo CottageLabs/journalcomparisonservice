@@ -1,0 +1,137 @@
+{% extends "layouts/1_column.html" %}
+{% load dashboard_tags %}
+{% block title %} Compare Journals {% endblock title%}
+
+
+{% block block_main %}
+    {% include 'includes/messages.html' %}
+    {% csrf_token %}
+    <section>
+        <div class="row">
+            <div class="col">
+                <a href="/dashboard/{{role|lower}}/" class="navlink"><i class="fa fa-arrow-left"></i>&nbsp;Back to search</a>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col">
+                <a href="#" id="download_compare_data" class="btn btn-secondary btn-secondary--short"><i class="fa fa-download"></i> Download data for these journals</a>
+            </div>
+        </div>
+    </section>
+    <div id="rows_to_display">
+        <div class="row">
+            <div class="col">
+                <a href="#" class="js-toggle_rows_to_display link nav-link"><i class="fas fa-chevron-down"></i>&nbsp;&nbsp;Rows to display</a>
+            </div>
+        </div>
+        <div id="rows_to_display_selector" style="display:none">
+
+            <div class="row">
+                <div class="col">
+                    <h3>Common fields</h3>
+                    <a href="#" class="js-toggle_select-all link" data-list="commonfields">Select all</a>&nbsp;&nbsp<a href="#" class="js-toggle_select-none link" data-list="commonfields">Unselect all</a>
+                    <ul id="commonfields">
+                    {% for key in keys.selectable_common_keys %}
+                        <li><label for="{{ key.key }}"><input class="js-compare--selector" name="{{ key.key }}" type="checkbox" checked {% if not key.present %}disabled{% endif %}>{{ key.name }}</label></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h3>Information Power fields</h3>
+                    <a href="#" class="js-toggle_select-all link" data-list="ipfields">Select all</a>&nbsp;&nbsp<a href="#" class="js-toggle_select-none link" data-list="ipfields">Unselect all</a>
+                    <ul id="ipfields">
+                    {% for key in keys.selectable_ip_keys %}
+                        <li><label for="{{ key.key }}"><input class="js-compare--selector" name="{{ key.key }}" type="checkbox" checked {% if not key.present %}disabled{% endif %}>{{ key.name }}</label></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h3>Fair Open Access Alliance fields</h3>
+                    <a href="#" class="js-toggle_select-all link" data-list="foaafields">Select all</a>&nbsp;&nbsp<a href="#" class="js-toggle_select-none link" data-list="foaafields">Unselect all</a>
+                    <ul id="foaafields">
+                    {% for key in keys.selectable_foaa_keys %}
+                        <li><label for="{{ key.key }}"><input class="js-compare--selector" name="{{ key.key }}" type="checkbox" checked {% if not key.present %}disabled{% endif %}>{{ key.name }}</label></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="report">
+        <thead>
+        <tr>
+            <th>
+                <h4>Field</h4>
+            </th>
+            {% for row in data %}
+            <th>
+                <h4> {{ row.journal_title }} ({{ row.year }})</h4>
+                <div><span class="tag tag--{{row.framework}} tag--long">{{ row.framework }}</span></div>
+            </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for key in keys.present_common_keys %}
+        <tr id="{{key.key}}">
+            <td>
+                {{ key.name }}
+            </td>
+            {% for row in data %}
+            <td>
+                {{ row|dict_key:key.key }}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+        {% for key in keys.present_ip_keys %}
+        <tr id="{{key.key}}">
+            <td>
+                <span class="tag tag--ip tag--round ip">IP</span>&nbsp;{{ key.name }}
+            </td>
+            {% for row in data %}
+            <td>
+                {{ row|dict_key:key.key }}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+        {% for key in keys.present_foaa_keys %}
+        <tr id="{{key.key}}">
+            <td>
+                <span class="tag tag--foaa tag--round foaa">FOAA</span>&nbsp;{{ key.name }}
+            </td>
+            {% for row in data %}
+            <td>
+                {{ row|dict_key:key.key }}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock block_main %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="/static/assets/js/download.js"></script>
+    <script type="text/javascript" src="/static/assets/js/compare.js"></script>
+
+    <script type="text/javascript">
+        $( document ).ready(function($) {
+            compare.init({keys: "{{ keys.key_list_encoded }}" });
+
+            $("#download_compare_data").on("click", function() {
+                download.triggerDownload({
+                    issns: {{issns | safe}}
+                })
+            })
+        });
+    </script>
+
+{% endblock javascripts %}

@@ -1,0 +1,23 @@
+.clinput {
+    &__options {
+        position: absolute;
+        width: 100%;
+        background: $background-secondary;
+        color: $dark;
+        //font-size: 1.4rem;
+        //line-height: 2.5rem;
+        ul {
+            border: 1px solid $primary;
+            background-color: $background-primary;
+            li {
+                padding: 0.75rem 0.375rem;
+                &:hover,
+                &:focus,
+                &:focus-visible,
+                &:active {
+                    background-color: rgba($primary, 0.3);
+                }
+            }
+        }
+    }
+}

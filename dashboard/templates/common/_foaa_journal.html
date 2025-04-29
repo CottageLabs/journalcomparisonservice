@@ -1,0 +1,28 @@
+<tr>
+    <td>In-house or Outsourced Journal Operations?</td>
+    <td>
+        {% if journal.inhouse_or_outsourced_journal_operations %}
+            {{ journal.inhouse_or_outsourced_journal_operations }}
+        {% else %}
+            No information provided
+        {% endif %}
+    </td>
+</tr>
+
+<tr>
+    <td>Rejection Rate</td>
+    <td>{{ journal.rejection_rate }}%</td>
+</tr>
+
+<tr>
+    <td>Discounts and Waivers Policy</td>
+    <td>
+        {% if not journal.discounts_and_waivers_policy %}
+            No information provided
+        {% elif journal.discounts_and_waivers_policy|slice:":4" == "http" %}
+            <a href="{{ journal.discounts_and_waivers_policy }}">{{ journal.discounts_and_waivers_policy }}</a>
+        {% else %}
+            {{ journal.discounts_and_waivers_policy }}
+        {% endif %}
+    </td>
+</tr>

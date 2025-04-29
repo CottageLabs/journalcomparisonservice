@@ -1,0 +1,90 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} QR code {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+
+.copy-button {
+  background-color: #F39325;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+</style>
+{% endblock stylesheets %}
+
+{% block block_tile %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+
+<table>
+    <tr>
+        <td width="300">{{ img | safe }}</td>
+        <td align="center"><button class="copy-button" onclick="copyTextToClipboard('{{ secret | safe }}');"><i class="fas fa-copy fa-3x"></i></button></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="font-size: 12pt;">
+            <p>The QR code below is provided to access the JCS if you prefer to use a One Time Passcode (OTP) authenticator app, such as Google Authenticator, Authy or FreeOTP, rather than receive a OTP via SMS and your mobile device.</p>
+            <p>If you are going to use an Authenticator app, save the QR code so that it can be used by your app.</p>
+            <p>If, however, you plan instead to use the option of having a passcode texted to you, you can safely ignore this QR code</p>
+            <p style="font-weight: bold;">Take care not to share either with anyone as this gives access to your user account.</p></td>
+    </tr>
+</table>
+{% endif %}
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+
+    function fallbackCopyTextToClipboard(text) {
+  var textArea = document.createElement("textarea");
+  textArea.value = text;
+
+  // Avoid scrolling to bottom
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+
+  try {
+    var successful = document.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Fallback: Copying text command was ' + msg);
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+  }
+
+  document.body.removeChild(textArea);
+}
+
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text).then(function() {
+    // Not doing anything
+  }, function(err) {
+    alert('Could not copy the secret key to clipboard');
+  });
+}
+
+</script>
+{% endblock javascripts %}

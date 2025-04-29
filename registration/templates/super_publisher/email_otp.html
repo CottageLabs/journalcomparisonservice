@@ -1,0 +1,38 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Sign in {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+    {% include "includes/messages.html" %}
+    <div class="stepper">Step {{ current_step }} of {{ total_steps }}</div>
+    <h1>Please type in the <b>One Time Passcode</b> sent to your registered email.</h1>
+    <p>Check your spam folder if you can not find it in your email inbox.</p>
+
+    <form method="post">
+
+        {% csrf_token %}
+        {{ activation.management_form }}
+        <!-- Form -->
+
+        <div class="input-group input-group--otp">
+            {{ form.otp }}
+        </div>
+        <div class="d-grid">
+            <button type="submit" name="_continue" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ activation.management_form }}
+        <button type="submit" name="resend" value="resend" class="btn btn-link navlink--bold">Resend email</button>
+    </form>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

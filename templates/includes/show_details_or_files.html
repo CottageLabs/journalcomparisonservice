@@ -1,0 +1,14 @@
+{% comment %}
+
+This template is used by coalition S users when viewing either approved users or archived users.
+
+Logic is kept in coalitions_dashboard.js
+
+{% endcomment %}
+
+{% if files %}
+    <button type="button" name="filelist" class="btn btn-primary" id="show_files"><span class="far fa-file"></span>Show publisher's data</button>
+{% else %}
+    <button type="button" name="filelist" class="btn btn-primary" disabled id="show_files"><span class="far fa-file"></span>This publisher does not have any data</button>
+{% endif %}
+<button type="button" name="user_details" class="btn btn-primary" id="show_user_details" style="display: none"><span class="far fa-user"></span>Show user's details</button>

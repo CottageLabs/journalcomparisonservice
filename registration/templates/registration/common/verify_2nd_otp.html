@@ -1,0 +1,67 @@
+{% extends "layouts/fullscreen.html" %}
+
+{% block title %} Sign in {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+
+    {% include 'includes/messages.html' %}
+    <div class="stepper">Step {{ current_step }} of {{ total_steps }}</div>
+    {% if not sms %}
+    <p>Please enter your TOTP which you can generate using a mobile app such as <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en_GB&gl=US">Google Authenticator</a>, <a href="https://authy.com/">Authy</a> or <a href="https://freeotp.github.io/">FreeOTP</a>.</p>
+    {% endif %}
+    <form method="post">
+
+        {% csrf_token %}
+        {{ activation.management_form }}
+
+        <!-- Form -->
+        <div class="form-group">
+            <label>Second OTP</label>
+            <div class="input-group">
+                {{ form.otp }}
+            </div>
+            <span class="text-error">{{ form.otp.errors }}</span>
+        </div>
+        <button type="submit" name="_continue" class="btn btn-primary">Submit</button>
+    </form>
+    {% if sms %}
+        <div class="d-grid pt-2">
+            <form method="post">
+                {% csrf_token %}
+                {{ activation.management_form }}
+                <input type="hidden" name="sms">
+                <button type="submit" name="_resend" class="btn btn-link navlink--bold">Resend SMS</button>
+            </form>
+
+            <form method="post" >
+                {% csrf_token %}
+                {{ activation.management_form }}
+
+                <div class="buttons">
+                    <button type="submit" class="btn btn-link navlink--bold" name="device">
+                        Use device instead
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {{ activation.management_form }}
+            <div class="buttons">
+                <button type="submit" class="btn btn-link navlink--bold" name="sms">
+                    Send SMS instead.
+                </button>
+            </div>
+        </form>
+
+    {% endif %}
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

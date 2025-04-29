@@ -1,0 +1,123 @@
+{% extends "layouts/2_column.html" %}
+{% block title %} Register {% endblock %}
+{% block navigation %}{% endblock navigation %}
+{% block block_main %}
+    <div class="stepper">Step {{ current_step }} of {{ total_steps }}</div>
+    <h1>You are registering a form for <i>{{ organisation_name }}</i></h1>
+
+    <form method="post" id="organisation_form" xmlns="http://www.w3.org/1999/html">
+        {% csrf_token %}
+        {{ activation.management_form }}
+        <input type="hidden" name="organisation_name" id="organisation_name" value="{{ organisation_name }}">
+        <h2 class="block_title">Contact Information</h2>
+
+        <!-- Form -->
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" disabled value="{{ email }}">
+        </div>
+        <div class="input-group input-group--radio " id="organisation_type" >
+            <label>Applicant Type </label>
+            {% for field in form.organisation_type %}
+                <div>{{ field }}</div>
+            {% endfor %}
+            <span class="errortext">{{form.organisation_type.errors}}</span>
+        </div>
+        <div class="input-group">
+            <label for="title">Title</label>
+            <select name="title" id="title">
+                <option value="" selected disabled hidden>-- Choose title --</option>
+                <option value="Mr" {% if  user_form.title.value == "Mr" %} selected {% endif %}>Mr</option>
+                <option value="Miss" {% if  user_form.title.value == "Miss" %} selected {% endif %}>Miss</option>
+                <option value="Mrs" {% if  user_form.title.value == "Mrs" %} selected {% endif %}>Mrs</option>
+                <option value="Ms" {% if  user_form.title.value == "Ms" %} selected {% endif %}>Ms</option>
+                <option value="Dr" {% if user_form.title.value == "Dr" %} selected {% endif %}>Dr</option>
+                <option value="Professor" {% if user_form.title.value == "Professor" %} selected {% endif %}>Professor</option>
+                <option value="Lady" {% if user_form.title.value == "Lady" %} selected {% endif %}>Lady</option>
+                <option value="Sir" {% if user_form.title.value == "Sir" %} selected {% endif %}>Sir</option>
+                <option value="Rev" {% if user_form.title.value == "Rev" %} selected {% endif %}>Rev</option>
+                <option value="Mx" {% if  user_form.title.value == "Mx" %} selected {% endif %}>Mx</option>
+            </select>
+            <span class="errortext">{{user_form.title.errors}}</span>
+        </div>
+
+        <div class="input-group error">
+            <label for="fullname">Full name</label>
+            {{ user_form.name }}
+            <span class="errortext">{{user_form.name.errors}}</span>
+        </div>
+        <div class="input-group">
+            <label for="address_first_line">First line of the address</label>
+            {{ form.postal_address1 }}
+            <span class="errortext">{{form.postal_address1.errors}}</span>
+            <label for="address_second_line">Second line of the address</label>
+            {{ form.postal_address2 }}
+            <span class="errortext">{{form.postal_address2.errors}}</span>
+            <label for="address_third_line">Third line of the address</label>
+            {{ form.postal_address3 }}
+            <span class="errortext">{{form.postal_address3.errors}}</span>
+            <label for="address_postcode">Postcode</label>
+            {{ form.postcode }}
+            <span class="errortext">{{form.postcode.errors}}</span>
+            <label for="address_town">City/Town</label>
+            {{ form.city }}
+            <span class="errortext">{{form.city.errors}}</span>
+            <label for="address_country">Country</label>
+            {{ form.country }}
+            <span class="errortext">{{form.country.errors}}</span>
+            <label for="ror_id">ROR ID</label>
+            {{ form.ror_id }}
+            <span class="errortext">{{form.ror_id.errors}}</span>
+
+        </div>
+        <h2 class="block_title">End User Information</h2>
+        <div class="input-group">
+            <label>Name of the person who will sign the Legal Agreement with ESF (who are providing this service on behalf of cOAlition S), on behalf of the End User’s institution</label>
+            {{ form.esf_name }}
+            <span class="errortext">{{form.esf_name.errors}}</span>
+        </div>
+        <div class="input-group">
+            <label>Email address of a person at the End User institution who can sign the JCS legal agreement with ESF, who are providing this service on behalf of cOAlition S</label>
+            {{ form.esf_email }}
+            <span class="helptext">This email address must be in the name of the individual who can sign the agreement. Generic email addresses are not acceptable</span>
+            <span class="errortext">{{form.esf_email.errors}}</span>
+        </div>
+        <div class="input-group">
+            <label for="url">End User home page URL (i.e. if the End User is a university, cite the URL for the university website)</label>
+            {{ form.home_page_url }}
+            <span class="helptext">Please provide a URL where information about your organisation - including its postal address - can be obtained</span>
+            <span class="errortext">{{form.home_page_url.errors}}</span>
+        </div>
+        <div class="input-group">
+            <label for="open_access_agreement">Please provide an example of an Open Access agreement your institution is currently participating in with an academic publisher.</label>
+            {{ form.open_access_agreement }}
+            <span class="helptext">
+                Note: For the purpose of this question, an Open Access agreement includes Read and Publish Agreements, Publish & Read Agreements, Transformative/Transitional agreements, Subscribe to Open, Community Action Publishing Agreements, and other agreements with Open Access publishers.
+                </br></br>
+                If the agreement is registered in the ESAC registry, please provide the relevant ESAC ID.
+                </br></br>
+                If the agreement is not registered in ESAC, then please provide a link to a publicly accessible web page where information about any OA agreement you have entered into with a publisher can be found.
+                </br></br>
+                Applicants who cannot provide evidence that they participate in OA agreements with academic publishers, will be unable to access the Journal Comparison Service.
+            </span>
+            <span class="errortext">{{form.open_access_agreement.errors}}</span>
+        </div>
+
+    </form>
+
+{% endblock block_main %}
+
+{% block  block_side %}
+    <button class="btn btn-primary" id="submit" onclick="document.getElementById('organisation_form').submit()" ><span class="fa fa-check" ></span>Submit</button>
+    <div class="card card--error">
+        <div class="card-title">
+            <span>Answer all the questions</span>
+            <span class="fas fa-exclamation-circle"></span>
+        </div>
+        <p>You need to answer all the questions to submit the form.</p>
+    </div>
+{% endblock block_side %}
+
+{% block javascripts %}
+    <script src="/static/assets/js/registration.js"></script>
+{% endblock javascripts %}

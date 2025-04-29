@@ -1,0 +1,46 @@
+{% extends "super_publisher/awaiting_approval.html" %}
+{% load i18n dashboard_tags %}
+
+{% block block_middle %}
+    <form method="post" action="/dashboard/superpublisher/pubnewlink/">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-title">
+                <h3>Steps to invite Publisher User</h3>
+            </div>
+            <p><strong>Step 1:</strong> Please enter the email address of the <strong>Publisher User</strong> you would like to invite to use this service.
+                <br><strong>Note:</strong> If the Publisher User accepts this invitation, they will have to enter the email address given in Step 1.</p>
+            <p><strong>Step 2:</strong> Generate activation link. Click the button below to generate an activation link. <strong>Note</strong>: this activation code will be valid for {% settings_value "P_USER_LINK_VALID_IN_DAYS" %} days.</p>
+            <p><strong>Step 3:</strong> Send an email to the Publisher User identified in Step 1, along with the activation link generated in Step 2.</p>
+        </div>
+        <div class="input-group">
+            <label for="id_email">Email of user you want to create an activation link for:</label>
+            {{ puser_form.email }}
+            <span class="errortext">{{puser_form.email.errors}}</span>
+        </div>
+        {% if link_url %}
+        <div class="banner banner-message">
+            <div class="message-content">
+                <span id="copy_link" aria-label="copy activation link" class="icon icon--primary fas fa-copy"></span>
+                <span id="link_copied" style="display: none">
+                    <span class="icon icon--success fas fa-check copied"></span><i>Link copied!</i>
+                </span>
+                <span id="activation_link">{{ link_url }}</span>
+            </div>
+        </div>
+    {% endif %}
+        <button type="submit" name="_continue" class="btn btn-primary"><span class="fas fa-link"></span>Generate new activation link</button>
+    </form>
+{% endblock %}
+
+{% block block_right %}
+    <div class="card">
+        <div class="card-title">
+            <h3>What next?</h3>
+            <h3><span class="far fa-question-circle"></span></h3>
+        </div>
+        <p>Using this link, the Publisher User can complete their registration.</p>
+        <p>Upon completion of the registration, you will need to activate the Publisher User account in order to enable the Publisher User to login.</p>
+        <p>You will see any pending Publisher Users in the Publisher Administrator dashboard under the menu Users > Awaiting Approval</p>
+    </div>
+{% endblock block_right %}

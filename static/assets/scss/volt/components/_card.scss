@@ -1,0 +1,56 @@
+/**
+ * = Cards
+ */
+
+.card {
+    border: $card-border--primary;
+    position: relative;
+    background: $background-secondary;
+    border-radius: 0;
+    box-sizing: border-box;
+    margin-bottom: $spacing-03;
+    padding: $spacing-04 $spacing-04 $spacing-03 $spacing-04;
+    text-align: left;
+    &:first-child {
+        margin-top: 0;
+    }
+
+    @media screen and (max-width: $breakpoint-mobile) {
+        display: none;
+    }
+    &-title {
+        @include typescale-03;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        width: 100%;
+        margin-bottom: $spacing-03;
+        column-gap: $spacing-02;
+        span {
+            @include typescale-03;
+        }
+    }
+
+    &--primary {
+        border-radius: 0;
+        .card-title {
+            color: $success;
+        }
+    }
+
+    &--error, &--warning {
+        border: $card-border--error;
+        border-radius: 0;
+        .card-title {
+            color: $error;
+        }
+    }
+
+    &--success {
+        border: $card-border--success;
+        border-radius: 0;
+        .card-title {
+            color: $success;
+        }
+    }
+}

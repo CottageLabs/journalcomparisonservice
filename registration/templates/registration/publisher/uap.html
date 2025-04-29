@@ -1,0 +1,15 @@
+{% extends "common/uap.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block step %}<div class="stepper">Step {{ current_step }} of {{ total_steps }}</div>{% endblock %}
+{% block form %}
+<form method="post">
+
+    {% csrf_token %}
+    {{ activation.management_form }}
+    <div class="input-group input-group--checkbox">
+        <div><input type="checkbox" name="index" value="confirm_check" id="confirm_check" onchange="document.getElementById('confirm').disabled = !this.checked;"><label for="confirm_check">I understand</label></div>
+    </div>
+    <button type="submit" name="_continue" class="btn btn-primary" id="confirm" disabled ><span class="fas fa-check"></span>Continue to registration form</button>
+</form>
+{% endblock %}

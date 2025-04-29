@@ -1,0 +1,57 @@
+version: "3.3"
+
+services:
+  db:
+    image: "postgres:16.2"
+    volumes:
+      - data:/var/lib/postgresql/data
+    env_file:
+      - .env
+  web:
+    build: .
+    #command: python manage.py runserver 0.0.0.0:8000
+    entrypoint: /code/docker-entrypoint.sh
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+  pgadmin:
+    image: "dpage/pgadmin4:8.2"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=name@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_CONFIG_SERVER_MODE=False
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
+    ports:
+      - "5050:80"
+    links:
+      - db
+    depends_on:
+      - db
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.0"
+    container_name: elasticsearch
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+volumes:
+  data:
+  elasticsearch-data:

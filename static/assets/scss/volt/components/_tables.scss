@@ -1,0 +1,83 @@
+table {
+  width: 100%;
+  font-weight: normal;
+  color: $dark;
+
+  td, th {
+    padding: $spacing-03;
+  }
+
+  &.users {
+    th {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      @include typescale-03;
+
+      a {
+        @include typescale-04;
+      }
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        #download-all-text {
+          display: none;
+        }
+      }
+    }
+
+    td {
+      &.journal {
+        justify-content: flex-start;
+        column-gap: $spacing-03;
+      }
+    }
+
+    tr {
+      td {
+        &:not(.disabled) {
+          &:hover, &.active {
+            box-shadow: inset 0 0 8px $primary-focus;
+          }
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  &.report {
+    tr:nth-child(2n + 1 of :not(.hidden)) {
+      background: $white;
+    }
+
+    tr:nth-child(2n of :not(.hidden)) {
+      background: $background-secondary;
+    }
+  }
+
+}
+
+.documents {
+  td, th {
+    font-weight: normal;
+    color: $dark;
+
+    span {
+      cursor: pointer;
+    }
+  }
+
+  td:hover {
+    border: $primary-focus;
+  }
+}
+
+.users {
+  td > a {
+    font-weight: normal;
+    color: $dark;
+    text-align: left;
+  }
+}

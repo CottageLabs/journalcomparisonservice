@@ -1,0 +1,59 @@
+{% if files %}
+    {% load dashboard_tags %}
+    <h2>{% if publisher %} {{ publisher }}'s data {% else %} Your data {% endif %}</h2>
+    <table class="documents">
+        {% for file in files %}
+            <tr>
+                <td>
+                    <a href="#" aria-label="{{file.data_year}}_download" class="download_link" onclick="download_file('/dashboard/download_file/{{file.pk}}');"><i class="fas fa-download"></i></a>
+                </td>
+                <td class="info">
+                    <div>
+                        <h4 class="primary"><b>{{file.data_year}}</b></h4>
+                        <p><strong>Framework</strong>: {{frameworks|dict_key:file.framework}}<br/>
+                            <strong>Uploaded</strong>: {{file.uploaded}} {{file.uploaded.tzinfo}}<br/>
+                            <strong>Filename</strong>: {{file.original_file_name}} {%if file.size %}({{file.human_size}}){% endif %}<br/>
+                            <strong>Journals</strong>: {{file.journals}}</p>
+                    </div>
+                </td>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_file_id" value="{{file.pk}}">
+                        <button type="button"
+                                aria-label="{{file.data_year}}_delete"
+                                data-year="{{file.data_year}}"
+                                data-framework="{{frameworks|dict_key:file.framework}}"
+                                class="delete_link"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+
+        function download_file(url) {
+
+            fetch(url)
+              .then(response => response.blob().then((data) => {
+                      return {
+                        data: data,
+                        filename: response.headers.get('Content-disposition'),
+                      };
+                   }))
+              .then(({ data, filename }) => {
+                    const blob = new Blob([data]);
+                    const downloadUrl = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = downloadUrl;
+                    a.download = filename.split('=')[1];
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                })
+              .catch((e) => alert("The file download didn't work."));
+        }
+
+    </script>
+{% endif %}

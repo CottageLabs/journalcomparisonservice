@@ -1,0 +1,3 @@
+[submodule "static/assets/js/vendor/edges"]
+	path = static/assets/js/vendor/edges
+	url = git@github.com:CottageLabs/edges.git

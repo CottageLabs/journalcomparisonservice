@@ -1,0 +1,44 @@
+{% if messages %}
+    <div class="banner">
+        <ul class="banner-message">
+            {% for message in messages %}
+                <li{% if message.tags %} class="banner-message--{{ message.tags }}" {% else %} class="banner-message--info" {% endif %}>
+                    <div class="message-content">
+                        <span>{{ message|safe }}</span>
+                        <span class="close">&times;</span></div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+{% if spreadsheet %}
+    <div class="banner">
+        <ul class="banner-message">
+            {% for message in spreadsheet %}
+                <li class="{% if forloop.counter >= 3 %}collapsible_content{% endif %} banner-message--error">
+                    <div class='message-content'>
+                        <p>{{ message|safe }}</p>
+{#                        <span class="close">&times;</span>#}
+                    </div>
+                </li>
+            {% endfor %}
+            {% if spreadsheet|length >= 3 %}
+                <button id="show_more" class="btn btn-secondary collapsible_button" data-error_number="{{ spreadsheet|length }}">&#x2795;  Show all {{ spreadsheet|length }} errors.</button>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}
+
+{# Test messages #}
+{#<div class="row banner">#}
+{#    <ul class="banner-message">#}
+{#        <li class="banner-message--info"><div class="message-content">This is information that is very long and multiline hopefully to see how it aligned with the close button<span class="close">&times;</span></div></li>#}
+{#        <li class="banner-message--error"><div class="message-content">This is information that is very long and multiline hopefully to see how it aligned with the close button<span class="close">&times;</span></div></li>#}
+{#        <li class="banner-message--warning"><div class="message-content">This is information that is very long and multiline hopefully to see how it aligned with the close button<span class="close">&times;</span></div></li>#}
+{#        <li class="banner-message--error"><div class="message-content">This is information that is very long and multiline hopefully to see how it aligned with the close button<span class="close">&times;</span></div></li>#}
+{#    </ul>#}
+{#</div>#}
+
+{% block javascripts %}
+    <script src="/static/assets/js/messages.js"></script>
+{% endblock javascripts %}

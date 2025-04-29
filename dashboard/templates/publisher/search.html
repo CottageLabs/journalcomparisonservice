@@ -1,0 +1,35 @@
+{% extends 'layouts/2_column.html' %}
+{% block title %} Search {% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="/static/assets/js/vendor/edges/css/bs3.PagerRenderer.css">
+{% endblock stylesheets %}
+
+
+{% block content %}
+    <div id="publisher_journal_search">Loading search...</div>
+{% endblock content %}
+
+
+{% block javascripts %}
+<script type="text/javascript" src="/static/assets/js/vendor/edges/src/edges.jquery.js"></script>
+<script type="text/javascript" src="/static/assets/js/vendor/edges/src/es7x.js"></script>
+<script type="text/javascript" src="/static/assets/js/vendor/edges/src/edges.js"></script>
+<script type="text/javascript" src="/static/assets/js/vendor/clinput/clinput2.js"></script>
+
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/components/selectors.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/components/search.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/renderers/html5.AddFieldFilterWithCLInput.js"></script>
+    <script type="text/javascript" src="/static/assets/js/pstf.SelectedFiltersRenderer.js"></script>
+    <script type="text/javascript" src="/static/assets/js/vendor/edges/src/renderers/bs3.PagerRenderer.js"></script>
+
+<script type="text/javascript" src="/static/assets/js/publisher.search.js"></script>
+
+{% csrf_token %}
+
+<script type="text/javascript">
+$( document ).ready(function($) {
+    search.init();
+});
+</script>
+
+{% endblock javascripts %}

@@ -1,0 +1,31 @@
+.uap {
+  ol {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+
+    // font-style: normal;
+    font-weight: normal;
+    //font-size: 1.6rem;
+    //line-height: 3rem;
+    text-align: justify;
+  }
+
+  ol:not([type="a"]) > li {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 0.6em;
+  }
+
+  ol:not([type="a"]) > li:before {
+    content: counters(item, ".");
+    display: table-cell;
+    padding-right: 0.6em;
+  }
+
+  ol[type="a"] {
+    list-style-type: lower-alpha;
+    margin: 0;
+  }
+}

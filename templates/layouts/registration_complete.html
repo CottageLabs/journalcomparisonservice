@@ -1,0 +1,76 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n %}
+
+{% block title %} Sign in {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+    {% include 'includes/messages.html' %}
+
+    <div class="registration_confirmation">
+        <div class="title">
+            <h1>Registration successfully submitted!</h1>
+            <h1><span class="icon--success far fa-check-circle"></span></h1>
+        </div>
+        {% block success_message %}{% endblock success_message %}
+        <br/><br/>
+        <div>
+            <p>You may now close this window or navigate through following links:</p>
+            <p class="navlink--bold"><a href="https://www.coalition-s.org/journal-comparison-service" target="_blank">Find out more about the JCS</a></p>
+            <p class="navlink--bold"><a href="/" >Go back to login page</a></p>
+        </div>
+    </div>
+
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script>
+
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Fallback: Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function copyTextToClipboard(text) {
+            if (!navigator.clipboard) {
+                fallbackCopyTextToClipboard(text);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function() {
+                    document.getElementById("copy_qr_button").style.display="none";
+                    document.getElementById("secret_copied").style.display="initial";
+                setTimeout(function(){
+                    document.getElementById("copy_qr_button").style.display="initial";
+                    document.getElementById("secret_copied").style.display="none";
+                },1500);
+                // Not doing anything
+            }, function(err) {
+                alert('Could not copy the secret key to clipboard');
+            });
+        }
+
+    </script>
+{% endblock javascripts %}

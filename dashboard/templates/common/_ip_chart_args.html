@@ -1,0 +1,22 @@
+x: [
+    "Journal Community Development",
+    "Journal Submission On First Decision",
+    "Peer Review",
+    "Services Acceptance Publication",
+    "Services Post Publication",
+    "Platform Development Support",
+    "Sales Marketing",
+    "Author Customer Support"
+],
+{# display 0 instead of 0.01 to show that the data is rendered as opposed to not rendered at all #}
+
+y: [
+    {% if journal.price_breakdown_journal_community_development %}{{ journal.price_breakdown_journal_community_development }} {% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_journal_submission_on_first_decision %}{{ journal.price_breakdown_journal_submission_on_first_decision }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_peer_review %}{{ journal.price_breakdown_peer_review }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_services_acceptance_publication %}{{ journal.price_breakdown_services_acceptance_publication }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_services_post_publication %}{{ journal.price_breakdown_services_post_publication }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_platform_development_support %}{{ journal.price_breakdown_platform_development_support }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_sales_marketing %}{{ journal.price_breakdown_sales_marketing }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_author_customer_support %}{{ journal.price_breakdown_author_customer_support }}{% else %} 0.01 {% endif %}
+],

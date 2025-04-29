@@ -1,0 +1,51 @@
+{% extends "layouts/files_layout.html" %}
+{% load dashboard_tags %}
+{% block title %} File upload {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block block_left %}
+
+    {% include 'includes/upload_file.html' %}
+
+{% endblock block_left %}
+{% block block_middle %}
+
+     {% include 'includes/list_files.html' %}
+
+     {% include 'includes/delete_file.html' %}
+
+{% endblock block_middle %}
+{% block block_right %}
+    <div class="card card--warning">
+        <div class="card-title">
+            <span>Important</span>
+            <span class="fas fa-exclamation-circle"></span>
+        </div>
+        <p>We are only accepting data for the calendar year {% last_year %}. If you have supplied data previously (for {% last_year %}), any new submissions will overwrite that data.</p>
+    </div>
+    <div class="card card--warning">
+        <div class="card-title">
+            <span>Important</span>
+            <span><i class="fas fa-exclamation-circle"></i></span>
+        </div>
+        <p>From 1st November 2024, all submissions must be made using the <strong>Information Power framework</strong> as support for the <strong>FOAA framework</strong> has ended.</p>
+        <p>See <span class="navlink--bold"><a href="https://www.coalition-s.org/journal-comparison-service-adopts-a-single-pricing-and-service-framework-to-simplify-data-comparison" target="_blank">here</a></span> for more information</p>
+        <!-- # Disable FOAA TODO: Remove all FOAA code. Issue#650 -->
+        {% if disable_foaa %}
+            <p>Contact us if you want to upload historical <strong>FOAA</strong> data with replacement <strong>IP</strong> data.</p>
+        {% endif %}
+    </div>
+{% endblock block_right %}
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script>
+
+    var last_years_files = {% check_framework files %};
+
+    </script>
+
+    <script src="/static/assets/js/upload_verify.js"></script>
+{% endblock javascripts %}

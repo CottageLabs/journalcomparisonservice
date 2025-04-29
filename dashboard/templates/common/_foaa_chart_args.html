@@ -1,0 +1,19 @@
+x: [
+    "Journal Operations",
+    "Publication",
+    "Fees",
+    "Communication",
+    "General",
+    "Surplus / Other Revenue",
+    "Discounts & Waivers"
+],
+{# display 0.01 instead of 0 to show that the data is rendered as opposed to not rendered at all #}
+y: [
+    {% if journal.price_breakdown_journal_operations %}{{ journal.price_breakdown_journal_operations }} {% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_publication %}{{ journal.price_breakdown_publication }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_fees %}{{ journal.price_breakdown_fees }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_communication %}{{ journal.price_breakdown_communication }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_general %}{{ journal.price_breakdown_general }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_surplus_other_revenue %}{{ journal.price_breakdown_surplus_other_revenue }}{% else %} 0.01 {% endif %},
+    {% if journal.price_breakdown_discounts_and_waivers %}{{ journal.price_breakdown_discounts_and_waivers }}{% else %} 0.01 {% endif %}
+],

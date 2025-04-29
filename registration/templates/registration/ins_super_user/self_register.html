@@ -1,0 +1,44 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Registration {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+    {% include 'includes/messages.html' %}
+    <div class="stepper">Step {{ current_step }} of {{ total_steps }}</div>
+    <h1>Let's get started! We need a few details.</h1>
+    <form method="post">
+
+        {% csrf_token %}
+        {{ activation.management_form }}
+        <!-- Form -->
+
+        <div class="input-group">
+            <label for="name">Full legal name of End User [i.e. name of organisation that will be signing the JCS legal agreement]</label>
+            {{form.organisation_name}}
+        </div>
+        <div class="input-group">
+            <label for="email">Email</label>
+            {{form.email}}
+            <span class="helptext">The email you provide here will be the email where the authentication code is sent to.</span>
+            <span class="errortext">{{form.email.errors}}</span>
+        </div>
+        <div class="input-group">
+            <label for="phone">Mobile Number</label>
+            <div class="phone-input">
+                {{ form.phone }}
+            </div>
+            <span class="helptext">The mobile number you provide here will be the number where the 2nd factor authentication code is sent to. Please ensure that the number given has been entered correctly.</span>
+
+            <span class="errortext">{{user_form.phone.errors}}</span>
+        </div>
+        <button type="submit" name="_continue" class="btn btn-primary"><span class="fas fa-envelope"></span> Send One Time Passcode To Email</button>
+    </form>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,48 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Registration {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+
+    {% include "includes/messages.html" %}
+
+    <div class="stepper">Step 1 of 8</div>
+    <section>
+        <div class="title title--warning">
+            <h1>End User Administrator Registration Form</h1>
+            <h1><span class="fas fa-exclamation-circle"></span></h1>
+        </div>
+    </section>
+    <section>
+        <p>
+            An <strong>End User Administrator</strong> is someone who has been given specific authority by their organisation/institution to administer the institution’s account and create <strong>End User Authorised User</strong> accounts for other colleagues who may need to access the Journal Comparison Service (JCS).
+            </br>
+            <strong>For the avoidance of doubt there can only ever be one End User Administrator per End User.</strong>
+        </p>
+        <p>
+            The <strong>End User Administrator</strong> can approve as many <strong>End User Authorised User</strong> accounts as they deem necessary, though it is good practice to limit the number to those colleagues who truly need access.
+        </p>
+        <p>
+            The <strong>End User Administrator</strong>  is responsible for revoking access to <strong>End User Authorised User</strong> accounts when someone leaves the organisation or if there has been misuse of the account.
+        </p>
+    </section>
+    <section>
+        <form method="post">
+
+            {% csrf_token %}
+            {{ activation.management_form }}
+            <div class="input-group input-group--checkbox">
+                <div><input type="checkbox" name="index" value="confirm_check" id="confirm_check" onchange="document.getElementById('confirm').disabled = !this.checked;"><label for="confirm_check">I understand</label></div>
+            </div>
+            <button type="submit" name="_continue" class="btn btn-primary" id="confirm" disabled ><span class="fas fa-check"></span>Next</button>
+        </form>
+    </section>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

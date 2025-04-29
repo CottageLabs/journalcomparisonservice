@@ -1,0 +1,55 @@
+{% extends "layouts/1_column.html" %}
+
+{% block title %} Publishers {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block block_main %}
+    <section>
+        <a href="/dashboard/{{role|lower}}/" class="navlink navlink--bold"><i class="fa fa-arrow-left"></i>&nbsp;back to search</a>
+    </section>
+    <div class="row">
+        <div class="col">
+            <table class="report">
+            <tr>
+                <th>
+                    Publishers who have provided data to JCS
+                </th>
+            </tr>
+                {% for publisher in publishers %}
+                    <tr>
+                        <td>
+                            <a href="#" aria-label="download {{ publisher.name }}'s data" title="download {{ publisher.name }}'s data" class="download_publisher" data-publisher="{{ publisher.publisher_id }}" style="margin-right: 10px;"><span class="fas fa-download"></span></a>
+                            <a class="navlink navlink--regular" href='/dashboard/{{ role|lower }}/?source=%7B"query"%3A%7B"bool"%3A%7B"must"%3A%5B%7B"terms"%3A%7B"publisher_id"%3A[{{ publisher.publisher_id }}]%7D%7D%5D%7D%7D%2C"size"%3A20%2C"track_total_hits"%3Atrue%7D"'>{{ publisher.name }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock block_main %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script type="text/javascript" src="/static/assets/js/download.js"></script>
+    <script type="text/javascript">
+$( document ).ready(function($) {
+    $(".download_publisher").on("click", function(e) {
+        let publisher_id = parseInt($(e.currentTarget).attr("data-publisher"));
+        let query = {
+            query:{
+                bool:{
+                    must:[
+                        {terms:{"publisher_id":[publisher_id]}}
+                    ]
+                }
+            }
+        };
+        download.triggerDownload({query: query});
+    });
+});
+    </script>
+{% endblock javascripts %}

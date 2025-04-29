@@ -1,0 +1,60 @@
+{% extends "layouts/1_column.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend dashboard_tags %}
+
+{% block title %} Delete Confirmation {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_main %}
+    <div>
+        <h2><span class="fa fa-warning">Warning</span></h2>
+        <p>You are about to delete {{ account_type }} Admin <i><b>{{ user_name }}</b></i> account.</p>
+        <p>This is the only {{ account_type }} Admin account for the {{ account_type }} <i><b>{{ account_name }}</b></i>.</p>
+        <p>To delete the account <i><b>{{ account_name }}</b></i>  and all the users, click <span style="text-transform:uppercase;">'{{ account_type }} Account'</span>.</p>
+        <p>To delete only the user, click 'SELECTED USER ONLY'</p>
+        <p>Do you want to delete?</p>
+            <div class="d-grid mb-4">
+                <form method="post" id="form-actions" action="{{ path }}">
+                    {% csrf_token %}
+                    <button type="button" id="delete_account" class="btn btn-success" form="form-actions"><span class="fas fa-check"></span>{{ account_type }} Account</button>
+                    <button type="button" id="confirm_delete_user" class="btn btn-success" form="form-actions"><span class="fas fa-check"></span>SELECTED USER ONLY</button>
+                    <button type="submit" name="cancel" class="btn btn-error close_modal"><span class="fas fa-ban"></span>No, cancel this operation</button>
+                </form>
+            </div>
+    </div>
+    <div class="modal" id="delete_account_confirmation" style="display:none">
+        <div class="modal-background">
+            <div class="modal-content">
+                <h2><span class="fa fa-times close_modal close_modal_publisher"></span></h2>
+                <h2>After this action, {{ account_type }} '<i>{{ account_name }}</i>' and all users of this account will be deleted from the system.</h2>
+                <p>Do you want to continue?</p>
+                    {% csrf_token %}
+                    <div class="d-grid mb-4">
+                        <button type="submit" name="delete_account" class="btn btn-success" form="form-actions"><span class="fas fa-check"></span>Yes, continue.</button>
+                        <button type="button" name="cancel" class="btn btn-error close_modal_publisher"><span class="fas fa-ban"></span>No, cancel this operation.</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="delete_user_confirmation" style="display:none">
+        <div class="modal-background">
+            <div class="modal-content">
+                <h2><span class="fa fa-times close_modal close_modal_user"></span></h2>
+                <h2>After this action, {{ account_type }} Admin '<i>{{ user_name }}</i>' will be deleted from the system.</h2>
+                <p>Do you want to continue?</p>
+                    {% csrf_token %}
+                    <div class="d-grid mb-4">
+                        <button type="submit" name="delete_user_confirm" class="btn btn-success" form="form-actions"><span class="fas fa-check"></span>Yes, continue.</button>
+                        <button type="button" name="cancel" class="btn btn-error close_modal close_modal_user"><span class="fas fa-ban"></span>No, cancel this operation.</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    {% include 'includes/delete_file.html' %}
+{% endblock block_main %}
+
+{% block javascripts %}
+    <script src="/static/assets/js/user_delete_confirmation.js"></script>
+{% endblock javascripts %}
+

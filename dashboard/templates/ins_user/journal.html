@@ -1,0 +1,196 @@
+{% extends "layouts/1_column.html" %}
+
+{% block title %} Journal {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <section>
+        <a href="/dashboard/{{role|lower}}/" class="navlink navlink--bold"><i class="fa fa-arrow-left"></i>&nbsp;back to browsing</a>
+    </section>
+    <h1 class="title title--primary">
+        <a href="#" title="Download this journal's data" class="download_link primary" aria-label="Download this journal's data" id="download_journal_data"><span class="fas fa-download" ></span></a>
+        {{ journal.journal_title }}
+    </h1>
+    <section>
+        <div class="row">
+            <div class="col">
+                <h2>Basic information</h2>
+                <div>
+                    <p><strong>ISSN</strong>: {{ journal.issn }}</p>
+                    <p><strong>Publisher</strong>: {{ publisher.publisher_name }}</p>
+                    <p><strong>Discipline</strong>: {{ journal.discipline }}</p>
+                    {% if journal.owner_ror_id %}
+                        {% if journal.owner_ror_id|slice:":4" == "http" %}
+                            <p><strong>Owner ROR ID</strong>: <a href="{{ journal.owner_ror_id }}" class="navlink">{{ journal.owner_ror_id }}</a></p>
+                        {% else %}
+                            <p><strong>Owner ROR ID</strong>: <a href="https://ror.org/{{ journal.owner_ror_id }}" class="navlink">https://ror.org/{{ journal.owner_ror_id }}</a></p>
+                        {% endif %}
+                    {% endif %}
+                    {% if journal.publisher_ror_id %}
+                        {% if journal.publisher_ror_id|slice:":4" == "http" %}
+                            <p><strong>Publisher ROR ID</strong>: <a href="{{ journal.publisher_ror_id }}" class="navlink">{{ journal.publisher_ror_id }}</a></p>
+                        {% else %}
+                            <p><strong>Publisher ROR ID</strong>: <a href="https://ror.org/{{ journal.publisher_ror_id }}" class="navlink">https://ror.org/{{ journal.publisher_ror_id }}</a></p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        {# There will only be one year for the moment, but this needs to be replaced asap with a tabbed version #}
+        <h2>Reporting year</h2>
+        <nav class="navbar">
+            <ul class="nav nav-pills nav-fill">
+                {% for y in years %}
+                    <li class="nav-item">
+                        <a class="link nav-link {% if y == year %} active {% endif %}" id="tabs-{{ y }}" href="/dashboard/journal/{{ journal.issn }}/{{ y }}" role="tab" aria-controls="tabs" aria-selected="true">{{ y }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </section>
+    <div class="tab-content">
+        <section>
+            <p>Data submitted in <span class="tag tag--{{framework}}">{{ framework }}</span> format</p>
+        </section>
+        <section>
+            <div class="row">
+                <div class="col">
+                    <h2>Price breakdown</h2>
+                    <div id="price-breakdown"></div>
+                </div>
+                <div class="col">
+                    <table class="report">
+                        <tbody>
+                        <tr>
+                            <td>APC List Price Range</td>
+                            <td>
+                                {{ journal.apc_list_price_range_lower }} - {{ journal.apc_list_price_range_higher }} {{ journal.apc_list_price_currency }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>APC Waiver Discount Policy</td>
+                            <td>
+                                {% if journal.apc_waiver_discount_policy %}
+                                    {% if journal.apc_waiver_discount_policy|slice:":4" == "http" %}
+                                        <a href="{{ journal.apc_waiver_discount_policy }}">{{ journal.apc_waiver_discount_policy }}</a>
+                                    {% else %}
+                                        {{ journal.apc_waiver_discount_policy }}
+                                    {% endif %}
+                                {% else %}
+                                    No information provided
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Subscription List Price Range</td>
+                            <td>{{ journal.subscription_list_price_range_lower }} - {{ journal.subscription_list_price_range_higher }} {{ journal.subscription_list_price_currency }}</td>
+                        </tr>
+
+                        <tr>
+                            <td>Subscription List Price For Member of The Association of American Universities</td>
+                            <td>
+                                {{ journal.subscription_list_price_for_member_of_the_association_of_americ }} &nbsp;{{ journal.subscription_list_price_currency }}
+                            </td>
+                        </tr>
+
+                            <tr>
+                                <td>Subscription Discount Policy</td>
+                                <td>
+                                    {% if not journal.subscripion_discount_policy %}
+                                        No information provided
+                                    {% elif journal.subscription_discount_policy|slice:":4" == "http" %}
+                                        <a href="{{ journal.subscription_discount_policy }}">{{ journal.subscription_discount_policy }}</a>
+                                    {% else %}
+                                        {{ journal.subscription_discount_policy }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                        {% if framework == constants.FRAMEWORK_IP %}
+                            {% include "common/_ip_journal.html" %}
+                        {% elif framework == constants.FRAMEWORK_FOAA %}
+                            {% include "common/_foaa_journal.html" %}
+                        {% endif %}
+
+                        {% if journal.notes %}
+                            <tr>
+                                <td>Notes</td>
+                                <td>{{ journal.notes }}</td>
+                            </tr>
+                        {% endif %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script type="text/javascript" src="/static/assets/vendor/plotly-2.12.1/plotly-2.12.1.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/download.js"></script>
+    {% csrf_token %}
+    <script type="text/javascript">
+        let journalPage = {
+            chart : false,
+
+            init: function() {
+                var data = [
+                    {
+                        {% if framework == constants.FRAMEWORK_IP %}
+                            {% include "common/_ip_chart_args.html" %}
+                        {% elif framework == constants.FRAMEWORK_FOAA %}
+                            {% include "common/_foaa_chart_args.html" %}
+                        {% endif %}
+                        type: 'bar',
+                        marker: {
+                            color: "#F39325"
+                        }
+                    }
+                ];
+                journalPage.chart = Plotly.newPlot('price-breakdown', data,
+                    {
+                        margin: {t: 20},
+                        //height: 300
+                        xaxis: {
+                            automargin: true,
+                            tickangle: -45
+                        },
+                        yaxis: {
+                            range: [0, 100],
+                            title: "% of total"
+                        },
+                    },
+                    {
+                        displayModeBar: false
+                    }
+                );
+
+                $("#download_journal_data").on("click", function() {
+                    download.triggerDownload({
+                        issns: [{issn: '{{ journal.issn }}', year: {{ year }} }]
+                    })
+                })
+            }
+        }
+
+        $( document ).ready(function($) {
+            journalPage.init()
+        });
+
+
+    </script>
+
+{% endblock javascripts %}

@@ -1,0 +1,66 @@
+{#<div class="feedback-title">Feedback form</div>#}
+
+<div class="modal feedback_form" id="feedback_form" style="display:none">
+    <div class="modal-background">
+        <div class="modal-content">
+            <span class="fa fa-times close_modal" id="close_feedback_modal"></span>
+
+            <div class="modal-title">
+                <h3>Feedback? Suggestion? Contact us here.</h3>
+            </div>
+            <div id="loader" class="loader" style="display: none"><span class="fas fa-spinner fa-spin"></span></div>
+            <div class="row banner" id="feedback_sent--success" style="display: none">
+                <ul class="banner-message">
+                    <li class="banner-message--success">
+                        <div class="message-content">
+                            <span>Message sent successfully</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row banner" id="feedback_sent--error" style="display: none">
+                <ul class="banner-message">
+                    <li class="banner-message--error">
+                        <div class="message-content">
+                            <span>Oops, something went wrong!</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="feedback-form">
+                    <input name="url" type="hidden" id="url" value="{{ request.build_absolute_uri }}">
+                    {% if not user.email %}
+                        <div class="input-group">
+                        <label for="name">Name</label>
+                    {% endif %}
+                    <input name="name" type="{% if request.user.email %}hidden{% else %}text{% endif %}" id="name" required value="{{ user.name }}">
+                    {% if not user.email %}
+                        </div>
+                        <div class="input-group">
+                        <label for="email">Email</label>
+                    {% endif %}
+                    <input name="email" type="{% if request.user.email %}hidden{% else %}email{% endif %}" id="email" required value="{{ user.email }}">
+                    {% if not user.email %}
+                        </div>
+                    {% endif %}
+                    <div class="input-group">
+                        <label for="comment">Your message</label>
+                        <textarea name="comment" id="comment" rows="10" required></textarea>
+                    </div>
+                    <div class="d-grid mb-4">
+                        <button type="submit" name="submit" class="btn btn-primary"><span class="fas fa-envelope"></span>Send</button>
+                    </div>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script src="/static/assets/js/feedback_form.js"></script>
+    <script src="/static/assets/js/close_modals.js"></script>
+{% endblock javascripts %}

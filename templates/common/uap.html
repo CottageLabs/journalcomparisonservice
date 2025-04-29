@@ -1,0 +1,156 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} AUP {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+    {% include "includes/messages.html" %}
+    {% block step %}{% endblock %}
+    <h1>Acceptable Use Policy</h1>
+    <section>
+        <p>This policy tells you how you may access our Journal Publishing Service (the <b>“Service”</b>).
+            It applies to anyone who uses the Service.
+        </p>
+    </section>
+    <div class="uap">
+        <ol>
+            <li>
+                <b>Who we are. The service is operated by the European Science Foundation (we or us).
+                    You can contact us at: </b>
+                <br/>
+                <br/>
+                cOAlition S Office <br/>
+                European Science Foundation <br />
+                1, quai Lezay – Marnésia <br />
+                67080 Strasbourg – France <br />
+                Email: info@coalition-s.org
+            </li>
+            <li>
+                <b>Changes to this Policy.</b> Given the fact that technology is continuously evolving, we may make changes to this policy at any time. Any changes will be displayed upon your next log-in and your approval will be requested before you can continue making use of the Service.
+            </li>
+            <li>
+                <b>
+                    How you may use the Service.
+                </b>
+                <ol>
+                    <li>
+                        <b>
+                            If you are accessing the Service on behalf of a publisher.
+                        </b>
+                        You will only access and use our Service to upload the Publisher Data in relation to journals, including name of journal, price, quality metrics and service using one of the two cOAlition S approved Frameworks.
+                    </li>
+                    <li>
+                        <b>
+                            If you are accessing the Service on behalf of a college or university, a funder or any other
+                            authorised user.
+                        </b>
+                        You confirm that you do not work for or on behalf of any other publisher. You will only access and use the Service to download the Publisher Data, use the Publisher Data (including in aggregated form) solely to inform purchasing decisions, to assess the services publishers provide and publish elements of the Publisher Data in aggregated form, provided that all details of the publisher or which allow the publisher to be identified are removed (including but not limited to elements such as the publisher name, journal name and ISSN).
+                    </li>
+                </ol>
+                The publisher, college, university, funder or other authorized user on whose behalf you access the Service have concluded an agreement with us. You are required to comply with any obligations the publisher, college, university, funder or other authorized user issues to you in addition to this policy. The template agreement that the publisher, college, university, funder or other authorized user have concluded can be found for your information through the Service.
+            </li>
+            <li>
+                <b>
+                    Your User Account.
+                </b>
+                You may only access the Service through your own end user account using your registered email address and your preferred second factor authentication method (mobile phone or authenticator app). You must not use any other person’s account to access the Service, nor allow any other person to use your account. You are responsible and liable for any abuse of your account by you or someone else (whether or not authorized by you). You are required to take all the necessary steps to prevent any access to your account by someone else, such as but not limited to protecting and keeping safe your registered email address and preferred second factor authentication method, using the Service correctly and ensuring that protection measures (e.g. anti-virus software, firewalls, etc.) are in place. In case you become aware of your registered email address and preferred second factor authentication method having been compromised in any way, you will alert us immediately so that we can take measures, such as blocking the account to prevent damage being done or adverse effects arising.
+            </li>
+            <li>
+                <b>
+                    You may use the Service only for lawful and responsible purposes.
+                </b>
+                You may not use the Service for illegal or irresponsible actions.
+                <br />
+                <br />
+                The following is in any event considered to be illegal or irresponsible (non-exhaustive):
+                <ol>
+                    <li>
+                        to use the Service in any way that breaks or violates any laws, or in any way that is or could be illegal, fraudulent or involves promoting scams;
+                    </li>
+                    <li>
+                        to send, spread, publish or display materials which (i) infringes (via uploading or otherwise) any copyright, trademark, patent, trade and/or other secrets or other (intellectual) property rights of third parties or us; (ii) endanger a person’s security or health or which could harm institutions, the public safety or public health; (iii) are excessively violent or which incite violence, threaten with violence, having a harassing content or contain hate generating comments; or (iv) promote illegal drugs, violate the export regulations or that are connected to illegal gambling or illegal arms trafficking;
+                    </li>
+                    <li>
+                        o use, send, spread, publish or display the publisher data to anyone else unless you are authorized by that publisher to do so, or use the publisher data in any way that infringes the intellectual property rights of the publisher.
+                    </li>
+                    <li>
+                        to send or help any other person to send spam or to collect or use (personal) information in any other way without the permission of the owner of that information, including but not limited to phishing, internet scamming, theft of passwords, spidering or harvesting;
+                    </li>
+                    <li>
+                        to knowingly send or upload any data or material which contains viruses or other (potentially) harmful code.
+                    </li>
+                    <li>
+                        You also agree not to:
+                        <ol type="a">
+                            <li>
+                                share any data relating to any one publisher with any other publisher;
+                            </li>
+                            <li>
+                                access any part of the Service unless you are an authorised user, nor to bypass the user identification or security of the Service, network or an account or to provide yourself access to data which was not meant for you;
+                            </li>
+                            <li>
+                                damage or interfere with the Service or our network or infrastructure, including but not limited to developing or using programs that hinder other users, create excessive requests (e.g. distributed denial of service attacks) or infiltrate in and/or damage a computer, a computer system or a network or which alter the software components of a computer, a computer system or a network; or
+                            </li>
+                            <li>
+                                gain or attempt to gain access to the accounts of third parties, or to infiltrate or attempt to infiltrate in the security of the computer software or hardware, electronic communication systems of the Service or a third party.
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <b>
+                    Our rights if you breach this policy
+                </b>
+                <ol>
+                    <li>
+                        You recognize and accept that compliance with this policy is an essential obligation, that needs to be met to be able to use the Service.
+                    </li>
+                    <li>
+                        Without prejudice to any liability provisions, in the event of reasonable evidence to suspect that this policy has been breached, we are entitled to:
+                        <ol type="a">
+                            <li>
+                                issue a warning to you;
+                            </li>
+                            <li>
+                                immediately stop you from using our Service and/or terminate our agreement(s) with you, the publisher or end user which relate to the Service;
+                            </li>
+                            <li>
+                                take legal action against you to recover any of our losses caused by your breach; or
+                            </li>
+                            <li>
+                                notify law enforcement authorities and/or relevant third parties if we suspect that you have broken any law or the breach might lead to criminal or civil prosecution; or
+                            </li>
+                            <li>
+                                take any other appropriate action.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        A breach of this policy might also lead to criminal and/or civil prosecution. You recognize and accept that we will comply with the competent authorities and/or relevant third parties to investigate criminal and other undesirable activities relating to the (mis)use of the Service.
+                    </li>
+                    <li>
+                        Without prejudice to the above, in the event of a breach of this policy, you shall defend, indemnify and hold us harmless for any damages, losses, expenses, liabilities or claims that we might incur as a result of the breach.
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <b>Our liability to you. </b>
+                We do not accept liability for actions taken by us in accordance with the previous article where we have reasonable evidence to suspect that you have breached this policy. If we stop you from using the Service, we may agree to reinstate your user account if the breach has been resolved and no irreparable damage has been caused.
+            </li>
+        </ol>
+    </div>
+    <p class="navlink--bold">
+        <a href="/static/assets/resources/JCS_Acceptable_Use_Policy.pdf" target="_blank">
+            <i class="fas fa-download"></i>
+            Download this policy
+        </a></p>
+    {% block form %}{% endblock %}
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

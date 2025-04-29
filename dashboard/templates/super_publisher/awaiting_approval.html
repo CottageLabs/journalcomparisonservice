@@ -1,0 +1,56 @@
+{% extends "super_publisher/users.html" %}
+
+{% block block_middle %}
+    <div class="input-group">
+        <label for="title">Title</label>
+        <input type="text" readonly id="title" value="{{auser.title}}">
+    </div>
+    <div class="input-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" readonly id="fullname" value="{{auser.name}}">
+    </div>
+    <div class="input-group">
+        <label for="email">
+        Email
+        <span id="copy_email" aria-label="copy email address" class="icon icon--primary far fa-copy"></span>
+        <span id="email_copied" style="display: none">
+            <span class="icon icon--success far fa-check"></span><i>Email address copied!</i>
+        </span>
+    </label>
+    <input type="text" readonly id="email" value="{{ auser.email }}">
+    </div>
+    <div class="input-group">
+        <label for="phone">Mobile</label>
+        <input type="text" readonly id="phone" value="{{auser.phone}}">
+    </div>
+{% endblock block_middle %}
+
+{% block block_right %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="approve" class="btn btn-success"><span class="fas fa-check"></span>Approve Publisher User</button>
+        <button type="button" name="reject_user" class="btn btn-error" id="deactivate_user"><span class="fas fa-trash"></span>Reject Publisher User</button>
+        <div class="modal" id="reject_confirmation" style="display:none">
+            <div class="modal-background">
+                <div class="modal-content">
+                    <h2><span class="fa fa-times close_modal"></span></h2>
+                    <h2>After this action, Publisher User '<i>{{ auser.name }}</i>' will lose access to the JCS.</h2>
+                    <p>Do you want to continue?</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ activation.management_form }}
+                        <button type="submit" name="reject" class="btn btn-success"><span class="fas fa-check"></span>Yes, continue.</button>
+                        <button type="button" name="cancel" class="btn btn-error close_modal"><span class="fas fa-ban"></span>No, cancel this operation.</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="card">
+        <div class="card-title">
+            <h2>Quick Tip</h2>
+            <h2><span class="far fa-lightbulb"></span></h2>
+        </div>
+        <p>Click on the email icon next to the email address to copy it!</p>
+    </div>
+{% endblock block_right %}

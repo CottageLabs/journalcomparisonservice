@@ -1,0 +1,53 @@
+.icon
+{
+    margin-right: 1.5rem;
+    font-weight: 900 !important;
+    &--primary {
+        color: $primary;
+    }
+    &--success {
+        color: $success;
+    }
+    &--error {
+        color: $error;
+    }
+    &--button {
+        height: 2.5rem;
+        margin-right: 2.5rem;
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    }
+}
+
+.fa-plus, .fa-minus {
+    margin-right: 0;
+}
+
+.fa-copy {
+    margin-left: 1.5rem;
+    cursor: pointer;
+    float: right;
+}
+#copy_link {
+    float: right;
+}
+#copy_email, #copy_email_esf {
+    float: none;
+    // font-style: normal;
+}
+#email_copied, #esf_email_copied {
+    margin-left: 1.5rem;
+}
+
+#link_copied {
+    float: right;
+    .copied {
+        margin-left: 1.5rem;
+    }
+}
+
+#remove_filter {
+    color: $dark;
+    font-weight: inherit;
+    margin-left: 1.5rem;
+}
+

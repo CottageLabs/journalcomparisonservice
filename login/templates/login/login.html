@@ -1,0 +1,45 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Sign in {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+
+    {% include 'includes/messages.html' %}
+    <section>
+        <h1>Login to <b>Journal Comparison Service</b></h1>
+        <p>
+            The Journal Comparison Service (JCS) has been developed by <span><a class="navlink--bold" href="https://www.coalition-s.org" target="_blank">cOAlition S</a></span> to provide customers (libraries, library consortia, and funders) with the ability to compare journal publishing services and fees and for publishers to respond to customer requests for more standard, transparent, and granular price and service information
+        </p>
+        <p>
+            <strong>Update (3/2/2025): </strong><span ><a class="navlink--bold" href="https://www.coalition-s.org/coalition-s-to-sunset-the-journal-comparison-service-in-april-2025/" target="_blank">cOAlition S to sunset the Journal Comparison Service in April 2025</a></span>
+        </p>
+    </section>
+
+    <form method="post" action="/login/email-otp">
+
+        {% csrf_token %}
+        <section>
+            <strong>If you have already registered, please log in with your email.</strong>
+        </section>
+        <section>
+            <!-- Form -->
+            <div class="input-group">
+                <label for="email">Email</label>
+                {{ form.email }}
+            </div>
+            <span class="errortext">{{ form.email.errors }}</span>
+            <button type="submit" name="_continue" class="btn btn-primary">Submit</button>
+        </section>
+    </form>
+    <section>
+        <a href="/register/select_user_type/" class="navlink--bold">If you do not yet have an account on the JCS, register here.</a>
+    </section>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

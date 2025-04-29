@@ -1,0 +1,32 @@
+{% extends "layouts/fullscreen.html" %}
+
+{% block title %} Sign in {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+
+    {% include 'includes/messages.html' %}
+
+    <form method="post" action="/register/select_user_type/">
+        {% csrf_token %}
+        <h1>
+            Who are you?
+        </h1>
+
+        <div class="buttons">
+            <button type="submit" class="btn btn-primary" name="publisher">
+                I am a publisher
+            </button>
+            <button type="submit" class="btn btn-primary" name="institutional_user">
+                I am a Librarian, or a representative of a library consortium or a representative of a cOAlition S funder
+            </button>
+        </div>
+
+    </form>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

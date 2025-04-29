@@ -1,0 +1,17 @@
+#rows_to_display {
+    border: 2px solid #cccccc;
+    border-radius: 0;
+    padding: 1rem;
+    margin-bottom: $spacing-03;
+    ul {
+        list-style: none;
+        padding-left: 0;
+        li input {
+            margin-right: 10px;
+        }
+    }
+    &_selector {
+        margin-top: 2em;
+        padding: 1rem;
+    }
+}

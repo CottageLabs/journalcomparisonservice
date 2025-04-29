@@ -1,0 +1,52 @@
+.banner {
+    margin-bottom: $spacing-04;
+    &-message {
+        list-style-type: none;
+        margin-bottom: $spacing-03;
+        padding-left: $spacing-03;
+        padding-right: $spacing-03;
+        > * {
+            background-color: $background-secondary;
+            margin-bottom: $spacing-03;
+            padding: $spacing-03 $spacing-04;
+            .message-content {
+                display: flex;
+                justify-content: space-between;
+                align-content: flex-start;
+                .close {
+                    cursor: pointer;
+                }
+            }
+        }
+        &--info {
+            border: $card-border--primary;
+        }
+        &--success {
+            box-shadow: inset $modal-box-shadow $success;
+        }
+        &--warning {
+            box-shadow: inset $modal-box-shadow $primary;
+        }
+        &--error {
+            box-shadow: inset $modal-box-shadow $error;
+        }
+    }
+    .dismiss_message {
+        float: right;
+        margin: 0;
+        top: 2.5rem;
+        right: 2.5rem;
+        cursor: pointer;
+    }
+    //.collapsible_button:not(.active):after {
+    //    content: '\02795   Show all'; /* Unicode character for "plus" sign (+) */
+    //    float: left;
+    //}
+    //.active:after {
+    //    content: "\2796   Show less "; /* Unicode character for "minus" sign (-) */
+    //    float: left;
+    //}
+    .collapsible_content {
+        display: none;
+    }
+}

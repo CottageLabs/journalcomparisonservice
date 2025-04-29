@@ -1,0 +1,169 @@
+.btn {
+    border-radius: 0;
+    width: 100%;
+    font-family: Raleway, sans-serif;
+    font-weight: normal;
+    padding: $spacing-03 $spacing-04;
+    margin-bottom: $spacing-03;
+    color: $white;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    vertical-align: middle;
+    white-space: normal;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    font-style: normal;
+    &:hover {
+        border-radius: 0;
+        color: $white;
+    }
+    span {
+        margin-right: $spacing-02;
+    }
+
+    &.btn-link {
+        padding-left: 0;
+        background: transparent;
+        border: none;
+    }
+
+    &.btn-link {
+        width: max-content;
+    }
+
+    &.btn-primary {
+        background: $primary;
+
+        &--short {
+            width: max-content;
+        }
+
+        &:hover {
+            border-color: $primary-focus;
+            background: $primary-focus;
+            box-shadow: $shadow-focus;
+        }
+        &[disabled], button:disabled {
+            background: $disabled;
+            border-color: $disabled;
+        }
+    }
+    &.btn-secondary {
+        background: $background-secondary;
+        border: $card-border--primary;
+        color: $dark;
+        &--short {
+            width: max-content;
+        }
+        &:hover {
+            box-shadow: $shadow-focus;
+            border: $card-border--secondary;
+            color: $dark;
+        }
+        &[disabled], button:disabled {
+            background: $disabled;
+            border-color: $disabled;
+        }
+    }
+    &.btn-success {
+        background: $success;
+
+        &:hover {
+            border-color: $success-focus;
+            background: $success-focus;
+            box-shadow: $shadow-focus;
+        }
+        &[disabled], button:disabled {
+            background: $disabled;
+            border-color: $disabled;
+        }
+    }
+    &.btn-error {
+        background: $error;
+
+        &:hover {
+            border-color: $error-focus;
+            background: $error-focus;
+            box-shadow: $shadow-focus;
+        }
+        &[disabled], button:disabled {
+            background: $disabled;
+            border-color: $disabled;
+        }
+    }
+    &.btn-short {
+        width: max-content;
+    }
+}
+.buttons--horizontal {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    .btn {
+        width: 47.5%;
+    }
+    @media screen and (max-width: $breakpoint-mobile) {
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-between;
+        .btn {
+            width: 100%;
+        }
+    }
+}
+
+//.help_button {
+//    //transform: rotate(90deg);
+//    //position: fixed;
+//    //bottom: 10%;
+//    //right: -2.5rem;
+//    float:right;
+//    width: max-content;
+//    border: none;
+//    background-color: $primary;
+//    font-weight: 600;
+//    color: $white;
+//    //&:hover, &:focus, &:active {
+//    //    transition: width 0.5s ease;
+//    //    color: $white;
+//    //    box-shadow: 0 0 0 10px rgba(243, 147, 37, 0.4);
+//    //}
+//    @media screen and (max-width: $breakpoint-mobile) {
+//        bottom: 2.5rem;
+//        right: 0;
+//        width: 3rem;
+//        height: 7.5rem;
+//        //&:hover, &:focus {
+//        //    width: 5em;
+//        //    box-shadow: 0 0 0 10px rgba(243, 147, 37, 0.4);
+//        //}
+//    }
+//}
+//.feedback-title {
+//    visibility: hidden;
+//    width:0%;
+//    position: fixed;
+//    bottom: 10rem;
+//    right: 12.5rem;
+//    height: 5rem;
+//    background-color: $primary;
+//    color: $white;
+//    font-size: 1.6rem;
+//    line-height: 200%;
+//    padding: 1rem 5rem 1rem 2.5rem;
+//
+//    -webkit-transition: width 1s ease-in-out;
+//    -moz-transition: width 1s ease-in-out;
+//    -o-transition: width 1s ease-in-out;
+//    transition: width 1s ease-in-out;
+//    transform-origin: right;
+//}
+//
+//.help_button:hover + .feedback-title {
+//    visibility: visible;
+//    background-color: red;
+//    width:100%;
+//}

@@ -1,0 +1,67 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Sign in {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+
+    {% include 'includes/messages.html' %}
+    <div class="stepper">Step 2 of 2</div>
+    <h1>Welcome to <b>Journal Comparison Service</b>.</h1>
+    <h2>You are registering as a Institutional User</h2>
+    <p>To register for an account on the JCS we need a few more details.</p>
+
+    <form method="post">
+
+        {% csrf_token %}
+        {{ activation.management_form }}
+        <!-- Form -->
+
+        <div class="input-group">
+            <label for="title">Title</label>
+            <select name="title" id="title" >
+                <option value="" disabled selected hidden>-- Choose title --</option>
+                <option value="Mr" {% if  form.title.value == "Mr" %} selected {% endif %}>Mr</option>
+                <option value="Miss" {% if  form.title.value == "Miss" %} selected {% endif %}>Miss</option>
+                <option value="Mrs" {% if  form.title.value == "Mrs" %} selected {% endif %}>Mrs</option>
+                <option value="Ms" {% if  form.title.value == "Ms" %} selected {% endif %}>Ms</option>
+                <option value="Dr" {% if user_form.title.value == "Dr" %} selected {% endif %}>Dr</option>
+                <option value="Professor" {% if user_form.title.value == "Professor" %} selected {% endif %}>Professor</option>
+                <option value="Lady" {% if user_form.title.value == "Lady" %} selected {% endif %}>Lady</option>
+                <option value="Sir" {% if user_form.title.value == "Sir" %} selected {% endif %}>Sir</option>
+                <option value="Rev" {% if user_form.title.value == "Rev" %} selected {% endif %}>Rev</option>
+                <option value="Mx" {% if  form.title.value == "Mx" %} selected {% endif %}>Mx</option>
+            </select>
+            <span class="errortext">{{form.title.errors}}</span>
+        </div>
+
+        <div class="input-group">
+            <label for="fullname">Full name</label>
+            {{form.name}}
+            <span class="errortext">{{form.name.errors}}</span>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email</label>
+            <span>You must use the same email address as the one used to receive your JCS registration link</span>
+            {{form.email}}
+            <span class="errortext">{{form.email.errors}}</span>
+        </div>
+
+        <div class="input-group">
+            <label for="phone">Mobile number</label>
+            {{form.phone}}
+            <span class="helptext">The mobile number you provide here will be the number where the 2nd factor authentication code is sent to. Please ensure that the number given has been entered correctly.</span>
+            <span class="errortext">{{form.phone.errors}}</span>
+        </div>
+
+        <button type="submit" name="_continue" class="btn btn-primary"><span class="fas fa-envelope"></span> Submit form - to validate your email address</button>
+    </form>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}<script src="/static/assets/js/registration.js"></script>{% endblock javascripts %}

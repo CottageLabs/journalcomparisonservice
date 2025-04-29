@@ -1,0 +1,29 @@
+{% extends "layouts/fullscreen.html" %}
+
+{% block title %} Error 500 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+
+    <main>
+        <section class="d-flex align-items-center justify-content-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center d-flex align-items-center justify-content-center">
+                        <div>
+                            <!--<img class="img-fluid w-75" src="/static/assets/img/illustrations/500.svg" alt="500 server error">-->
+                            <h1 class="mt-5">Something has gone <span class="text-primary">seriously</span> wrong</h1>
+                            <p class="lead my-4">Now might be a good time for a coffee break.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

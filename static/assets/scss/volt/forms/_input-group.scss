@@ -1,0 +1,121 @@
+.input-group > .form-control, .input-group > .form-select {
+    width: 100% !important;
+    min-width: 100% !important;
+}
+
+.input-group {
+    display: grid;
+    margin-bottom: $spacing-03;
+    line-height: unset;
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    textarea {
+        padding: $spacing-03 $spacing-02;
+    }
+
+    input, select {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        background: $white;
+        border: 1px solid $disabled;
+        border-radius: 0;
+        width: 100%;
+        padding: $spacing-03 $spacing-02;
+
+        &[type="email"]{
+            width: 100%;
+        }
+
+        &.error {
+            border: $input-border $error;
+        }
+
+        &[disabled], &[disabled]:focus, &[disabled]:hover,
+        &[readonly], &[readonly]:focus, &[readonly]:hover{
+            // font-style: normal;
+            //font-size: 1.6rem;
+            //line-height: 150%;
+            color: $disabled;
+            border: none;
+        }
+
+        //&[type="number"] {
+        //    width: 7%;
+        //    text-align: center;
+        //    -moz-appearance: textfield;
+        //    -webkit-appearance: textfield;
+        //
+        //    &::-webkit-inner-spin-button,
+        //    &::-webkit-outer-spin-button {
+        //        -webkit-appearance: none;
+        //        margin: 0;
+        //    }
+        //}
+
+        &[type="file"]{
+            width: 100%;
+            &::file-selector-button {
+                display: none;
+            }
+
+        }
+
+        &:hover, &:focus, &:focus-visible {
+            border: $input-border $primary;
+            border-radius: 0;
+            margin: 0 !important;
+        }
+    }
+    label {
+        font-weight: normal;
+        margin-bottom: $spacing-01;
+    }
+
+    span {
+        font-style: italic;
+        font-weight: normal;
+        margin-top: $spacing-01;
+        &.errortext {
+            color: $error;
+        }
+        &.helptext {
+            color: $dark;
+        }
+    }
+
+    &--checkbox, &--radio {
+        display: flex;
+        flex-direction: column;
+        div {
+            display: flex;
+            flex-direction: row;
+            padding: 0 $spacing-03 0 0;
+            align-items: baseline;
+            width: 100%;
+            input {
+                width: max-content;
+            }
+            label {
+                width: max-content;
+                margin-left: $spacing-03;
+            }
+        }
+
+        &--horizontal {
+            flex-direction: row;
+            div {
+                width: 50%;
+            }
+        }
+
+
+    }
+}
+
+select.input-sm {
+    line-height: unset !important;
+}

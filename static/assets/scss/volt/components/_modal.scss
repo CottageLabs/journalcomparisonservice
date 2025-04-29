@@ -1,0 +1,109 @@
+/**
+ * = Modals
+ */
+
+.modal{
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    .modal-background {
+        position: fixed;
+        top: 20rem;
+        left: 35%;
+        width: 30%;
+        height: 50%;
+        background-image: url("../img/brand/background-orange.svg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        @media screen and (max-width: $breakpoint-mobile) {
+            top: 5%;
+            left: 1%;
+            width: 98%;
+            height: 94%;
+        }
+        .modal-content {
+            box-shadow: $modal-box-shadow;
+            position: absolute;
+            background-color: $white;
+            left: 5%;
+            top: 5%;
+            width: 90%;
+            height: 90%;
+            padding: $spacing-05 $spacing-04 $spacing-03 $spacing-04;
+            text-align: left;
+            overflow: auto;
+            @media screen and (max-width: $breakpoint-mobile) {
+                left: .5%;
+                top: .5%;
+                width: 99%;
+                height: 100%;
+            }
+            span.close_modal {
+                @include typescale-03;
+                position: absolute;
+                top: 5%;
+                right: 5%;
+                cursor: pointer;
+                color: $dark 80%;
+            }
+            .modal-title {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: baseline;
+                span {
+                    margin-right: $spacing-03;
+                }
+                &--warning {
+                    font-weight: bold;
+                    color: $error;
+                }
+            }
+            .modal-body {
+                margin-top: $spacing-02;
+                padding: 0;
+                text-align: justify;
+            }
+        }
+    }
+}
+
+.modal.feedback_form {
+    .modal-background, .loader {
+        position: fixed;
+        top: 5%;
+        left: 15%;
+        width: 70%;
+        height: 90%;
+        @media screen and (max-width: $breakpoint-mobile) {
+            top: 5%;
+            left: 1%;
+            width: 98%;
+            height: 94%;
+            background: none;
+        }
+    }
+    .loader {
+        background-color: rgba(0, 0, 0, 0.4);  // disabled color with opacity 0.7
+        z-index: 100;
+        span {
+            position: absolute;
+            font-size: $spacing-06;
+            top: calc(50% - 3rem);      //3rem = $spacing-06/2
+            left: calc(50% - 3rem);
+            margin: auto;
+            color: $primary;
+        }
+    }
+    #close_feedback_modal {
+        cursor: pointer;
+    }
+}
+

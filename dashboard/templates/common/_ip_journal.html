@@ -1,0 +1,74 @@
+<tr>
+    <td>Price Transparency Context</td>
+    <td>
+        {% if journal.price_transparency_context %}
+            {{ journal.price_transparency_context }}
+        {% else %}
+            No information provided
+        {% endif %}
+    </td>
+</tr>
+
+<tr>
+    <td>Research Articles Published</td>
+    <td>{{ journal.research_articles_published }}</td>
+</tr>
+
+<tr>
+    <td>Acceptance Rate</td>
+    <td>{{ journal.acceptance_rate }}%</td>
+</tr>
+
+<tr>
+    <td>Desk Rejection Rate</td>
+    <td>
+        {% if journal.rejection_rate %}
+            {{ journal.rejection_rate }}
+        {% else %}
+            No data provided
+        {% endif %}
+    </td>
+</tr>
+
+<tr>
+    <td>Issue Publication Frequency</td>
+    <td>{{ journal.issue_publication_frequency }}</td>
+</tr>
+
+<tr>
+    <td>Median Number Reviews</td>
+    <td>{{ journal.median_number_reviews }}</td>
+</tr>
+
+{% if journal.median_time_submission_to_first_decision %}
+<tr>
+    <td>Median Time Submission To First Decision</td>
+    <td>{{ journal.median_time_submission_to_first_decision }} days</td>
+</tr>
+{% endif %}
+
+<tr>
+    <td>Median Time Peer Review</td>
+    <td>{{ journal.median_time_peer_review }} days</td>
+</tr>
+
+<tr>
+    <td>Median Time Acceptance To Publication</td>
+    <td>{{ journal.median_time_acceptance_to_publication }} days</td>
+</tr>
+
+<tr>
+    <td>Counter 5 Unique Item Requests</td>
+    <td>
+        {% if journal.counter_5_unique_item_requests %}
+            {{ journal.counter_5_unique_item_requests }}
+        {% else %}
+            No data provided
+        {% endif %}
+    </td>
+</tr>
+
+<tr>
+    <td>Counter 5 Total Item Requests</td>
+    <td>{{ journal.counter_5_total_item_requests }}</td>
+</tr>

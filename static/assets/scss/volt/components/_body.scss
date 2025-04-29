@@ -1,0 +1,192 @@
+html {
+    scroll-behavior: smooth;
+    font-size: 14px;
+    @media screen and (max-width: $breakpoint-mobile) {
+        font-size: 30px;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: $spacing-04;
+    line-height: 1.05;
+    font-weight: 400;
+}
+
+h1 {
+    font-weight: 700;
+    @include typescale-01;
+}
+
+h2 {
+    @include typescale-02;
+}
+
+h3 {
+    @include typescale-03;
+}
+
+h4 {
+    @include typescale-04;
+}
+
+h5 {
+    @include typescale-05;
+}
+
+h6 {
+    @include typescale-06;
+}
+
+.disabled {
+    color: $disabled;
+}
+
+.shaded {
+    background-color: $background-secondary;
+}
+
+section {
+    margin-bottom: $spacing-05;
+}
+
+body {
+    height: 100vh;
+    font-family: Source Sans Pro, sans-serif;
+    @media screen and (max-width: $breakpoint-mobile) {
+        height: unset;
+    }
+
+    .container, .container-fluid {
+        margin-left: $spacing-03;
+        margin-right: $spacing-03;
+        @media screen and (max-width: $breakpoint-mobile) {
+            margin-left: 0;
+            border-left: 1vh solid $primary;
+        }
+        .content {
+            padding-left: $spacing-04;
+            padding-right: $spacing-05;
+            min-height: 97.5vh;
+
+            @media screen and (max-width: $breakpoint-mobile) {
+                min-height: 96vh;
+            }
+
+            h1.title {
+                &.title--primary {
+                    color: $primary;
+                    font-weight: bold;
+                }
+            }
+
+            //@media screen and (max-width: $breakpoint-mobile) {
+            //    h1 {
+            //        font-size: 2.5rem;
+            //        line-height: 3rem;
+            //        margin-bottom: 2rem;
+            //    }
+            //
+            //    h2 {
+            //        font-size: 2rem;
+            //        line-height: 2.5rem;
+            //        margin-bottom: 2rem;
+            //    }
+            //
+            //    p {
+            //        font-size: 2rem;
+            //        line-height: 2.5rem;
+            //    }
+            //}
+
+            strong {
+                font-weight: 600;
+                text-align: justify;
+            }
+
+            .primary {
+                color: $primary !important;
+            }
+
+            .navlink {
+                text-decoration: none;
+
+                &--regular {
+                    color: $dark;
+                    font-weight: normal;
+                }
+
+                &--right {
+                    text-align: right;
+                }
+
+                &--bold {
+                    font-weight: 600;
+                    color: $link;
+                    // font-style: normal;
+
+                    a, p {
+                        text-decoration: none;
+                    }
+                }
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .correct {
+                font-family: Source Sans Pro, sans-serif;
+                font-weight: bold;
+                color: $primary
+            }
+        }
+    }
+
+    hr {
+        color: $primary;
+    }
+}
+
+.fullscreen_page {
+    background-image: url("../img/brand/background-orange.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    @media screen and (max-width: $breakpoint-mobile) {
+        background-size: unset;
+    }
+
+    .container-fluid {
+        margin-bottom: $spacing-05;
+        .content {
+            min-height: unset;
+        }
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        padding: 1rem;
+        background-color: $white;
+        border-top: $primary 1px solid;
+        .links {
+            margin: auto;
+            text-align: center;
+            a {
+                // font-style: normal;
+                font-weight: normal;
+                //font-size: 1.6rem;
+                //line-height: 150%;
+                color: $dark;
+                text-decoration: none;
+                &:not(:last-child):after {
+                    content: '\00B7';
+                    padding: 0 1.5rem;
+                    color: $primary;
+                }
+                &:hover {
+                    color: $link;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+    <div class="block block_left col-lg-3">
+        {% block block_left %}{% endblock block_left %}
+    </div>
+    <div class="block block_middle col-lg-6">
+        {% block block_middle %}{% endblock block_middle %}
+    </div>
+    <div class="block block_right col-lg-3">
+        {% block block_right %}{% endblock block_right %}
+    </div>
+{% endblock content %}

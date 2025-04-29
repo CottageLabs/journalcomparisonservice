@@ -1,0 +1,90 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n %}
+
+{% block title %} Registration {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+    {% include 'includes/messages.html' %}
+    <div class="registration_confirmation">
+        <span class="correct">Email authentication has been successful!</span><br /><br/>
+        <p>In order to log in to JCS you need to use second factor authentication. You can either get a SMS sent to your mobile phone or you can use an authenticator app to generate passcodes on a mobile device such as a phone or a tablet.</p>
+        <br/>
+        <div class="title">
+            <h1>QR code for Authenticator app</h1>
+        </div>
+        {% block success_message %}{% endblock success_message %}
+
+        <br/>
+        <p>The QR code below is provided to access the JCS if you prefer to use a One Time Passcode (OTP) authenticator app, such as Google Authenticator, Authy or FreeOTP, rather than receive an OTP via SMS.</p>
+        <p>If you are going to use an authentication app, either scan the QR code so that it can be used by your app or click the "Copy the secret key" button to copy the secret key (embedded in the QR code) required by the authentication app.</p>
+        <p>If, however, you plan instead to have OTPs texted to you, you can safely ignore the secret key and the QR code.</p>
+        <strong>Take care not to share either the secret key nor the QR code with anyone as this gives access to your user account.</strong>
+        <div class="qr_code">
+            {{ img | safe }}
+        </div>
+        <button class="btn btn-primary" id="copy_qr_button" onclick="copyTextToClipboard('{{ secret | safe }}');"><span class="fas fa-copy"></span> Copy the secret key</button>
+        <button class="btn btn-success" style="display:none" id="secret_copied" aria-label="secret copied!"><i class="fas fa-check-circle"></i> Secret copied!</button>
+        <div>
+            <p>To continue the registration process, click the button below to verify the second passcode either by mobile SMS or authenticator app.</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ activation.management_form }}
+                <button type="submit" name="_continue" class="btn btn-primary"><span class="fas fa-envelope"></span> Select Second Passcode verification method</button>
+            </form>
+        </div>
+    </div>
+    <div class="stepper">Step {{ current_step }} of {{ total_steps }}</div>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    <script>
+
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Fallback: Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function copyTextToClipboard(text) {
+            if (!navigator.clipboard) {
+                fallbackCopyTextToClipboard(text);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function() {
+                    document.getElementById("copy_qr_button").style.display="none";
+                    document.getElementById("secret_copied").style.display="initial";
+                setTimeout(function(){
+                    document.getElementById("copy_qr_button").style.display="initial";
+                    document.getElementById("secret_copied").style.display="none";
+                },1500);
+                // Not doing anything
+            }, function(err) {
+                alert('Could not copy the secret key to clipboard');
+            });
+        }
+
+    </script>
+{% endblock javascripts %}

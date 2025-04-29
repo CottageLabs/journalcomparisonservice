@@ -1,0 +1,32 @@
+.sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 105vh;
+    &-small {
+        left: 0;
+        width: $sidebar-width;
+        z-index: 1000;
+        background-image: url("../img/brand/sidebar.svg");
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: cover;
+        position: fixed;
+        @media screen and (max-width: $breakpoint-mobile) {
+            display: none;
+        }
+    }
+
+    &-orange {
+        width: $large-sidebar-width;
+        position: absolute;
+        top: 0;
+        left: 10vw;
+        background-color: $primary;
+        @media screen and (max-width: $breakpoint-mobile) {
+            background-position: unset;
+            left: 0;
+            width: $media-sidebar-width
+        }
+    }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load dashboard_tags %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Primary Meta Tags -->
+
+    <title>
+        JCS - {% block title %}{% endblock %}
+    </title>
+
+    <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-volt">
+    <link type="text/css" href="/static/assets/css/volt.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/static/assets/img/favicon.png">
+
+    {% load static %}
+    <!-- reference your installed Font Awesome Free package's files here -->
+    <link href="{% static 'fontawesome_free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Specific Page JS goes HERE  -->
+    {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+<body>
+
+<div class="container-fluid overflow-hidden">
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="sidebar sidebar-small"></div>
+        </div>
+
+        <div class="col-lg-11 content">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% include 'includes/navigation.html' %}
+                </div>
+                <p>
+                    <strong >Update (3/2/2025): </strong><span ><a class="navlink--bold" href="https://www.coalition-s.org/coalition-s-to-sunset-the-journal-comparison-service-in-april-2025/" target="_blank">cOAlition S to sunset the Journal Comparison Service in April 2025</a></span>
+                </p>
+            </div>
+
+            <div class="row">
+                {% include 'includes/messages.html' %}
+                {% if user|is_institutional_user and not request.COOKIES.jcs_tnc_cookie %}
+                    {% include "includes/tnc_consent.html" %}
+                {% endif %}
+                {% block content %}{% endblock content %}
+            </div>
+            {#            <div class="row">#}
+            {#                <div class="col-md-12">#}
+            {#                    {% include 'includes/footer.html' %}#}
+            {#                </div>#}
+            {#            </div>#}
+        </div>
+    </div>
+    <div class="row">
+        {% include 'includes/footer.html' %}
+    </div>
+</div>
+{% include 'includes/scripts.html' %}
+{% include 'includes/feedback_form.html' %}
+{% include 'session_security/all.html' %}
+{% block javascripts %}{% endblock javascripts %}
+<!-- Go to previous url if previous url exists  -->
+{% if request.session.previous_url %}
+<script>
+    function goToPreviousURL() {
+        location.href='{{ request.session.previous_url }}';
+    }
+    function delay() {
+        setTimeout(function() {
+            goToPreviousURL();
+        }, 200);
+    }
+
+    if (document.readyState === 'complete') {
+        delay();
+    } else {
+        document.onreadystatechange = function () {
+            if (document.readyState === "complete") {
+                delay();
+            }
+        }
+    }
+</script>
+{% endif %}
+
+{% if user|is_institutional_user and not request.COOKIES.jcs_tnc_cookie %}
+<script>
+    jQuery(document).ready(function() {
+        $(".tnc-consent #tnc-consent-agree").on("click", setCookieConsent);
+    });
+
+    function setCookieConsent(event) {
+        event.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: "/dashboard/set_tnc_cookie/",
+            success: function() {
+                $("#tnc-consent").remove();
+            },
+            error : function() {
+                alert("We weren't able to set your preferences, please try again later.");
+            }
+        })
+    }
+</script>
+{% endif %}
+
+</body>
+</html>

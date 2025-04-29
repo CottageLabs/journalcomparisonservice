@@ -1,0 +1,24 @@
+.file-form {
+    background-color: $background-secondary;
+    padding: $spacing-03;
+}
+.download_link, .add_link {
+    color: $dark;
+    &:hover {
+        color: $primary;
+    }
+}
+
+.download_link {
+    @include typescale-02;
+}
+
+.delete_link {
+    @include typescale-02;
+    background-color: transparent;
+    border: none;
+    color: $dark;
+    &:hover {
+        color: $danger;
+    }
+}

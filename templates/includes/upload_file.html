@@ -1,0 +1,42 @@
+<div class="file-form">
+
+    {% if disable_foaa %}
+        <h2>Submit or update data - Information Power</h2>
+    {% else %}
+        <h2>Submit or update data</h2>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" name="uploadform" id="uploadform">
+
+        {% csrf_token %}
+
+        <!-- Framework selection -->
+        <div class="input-group input-group--radio">
+            <!-- # Disable FOAA TODO: Remove all FOAA code. Issue#650 -->
+            {% if disable_foaa %}
+                <p>
+                    Note: From 1st November 2024, the JCS will only accept data formatted according to the Information Power framework.
+                    A template of this framework can be downloaded <span class="navlink--bold"><a href="https://www.coalition-s.org/wp-content/uploads/2022/05/Journal_Comparison_Service_Data_Collection_Information_Power.xlsx" target="_blank">here</a></span>
+                </p>
+            {% else %}
+                <label for="framework">Framework</label>
+                <div class="input-group--radio--horizontal">
+                    {{ form.framework }}
+                </div>
+            {% endif %}
+
+            <span class="errortext">{{form.framework.errors}}</span>
+        </div>
+
+        <!-- File selection -->
+        <div class="input-group">
+            <label for="id_file">File</label>
+            {{ form.upload_file }}
+            <span class="errortext">{{form.upload_file.errors}}</span>
+        </div>
+        <button type="submit" name="_continue" id="upload-btn" class="btn btn-primary">Submit</button>
+
+        {% include 'includes/overwrite_file.html' %}
+
+    </form>
+</div>

@@ -1,0 +1,34 @@
+{% extends "super_publisher/awaiting_approval.html" %}
+
+{% block block_right %}
+    <form method="post" id="form-actions">
+
+        {% csrf_token %}
+        {{ activation.management_form }}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="reactivate" class="btn btn-success"><span class="far fa-check-circle"></span>Reactivate</button>
+            <button type="button" name="delete_user" id="delete_user" class="btn btn-error"><span class="fas fa-trash"></span>Delete User</button>
+        </form>
+    </form>
+    <div class="card card--warning">
+        <div class="card-title">
+            <span>Remember</span>
+            <span class="far fa-exclamation-circle"></span>
+        </div>
+        <p>After reactivation the user will be added to “Awaiting approval list” and needs to be approved again.</p>
+    </div>
+    <div class="modal" id="delete_confirmation" style="display:none">
+        <div class="modal-background">
+            <div class="modal-content">
+                <h2><span class="fa fa-times close_modal"></span></h2>
+                <h2>After this action, user '<i>{{ auser.name }}</i>' will be deleted from the system.</h2>
+                <p>Do you want to continue?</p>
+                <div class="d-grid mb-4">
+                    <button type="submit" name="delete" class="btn btn-success" form="form-actions"><span class="fas fa-check"></span>Yes, continue.</button>
+                    <button type="button" name="cancel" class="btn btn-error close_modal"><span class="fas fa-ban"></span>No, cancel this operation.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock block_right %}

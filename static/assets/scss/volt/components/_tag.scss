@@ -1,0 +1,35 @@
+.tag {
+    border-radius: 5px;
+    width: fit-content;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: $spacing-02 $spacing-03;
+    &.tag--foaa, &.tag--FOAA {
+        background-color: #0B0033;
+        color: #D5DFE5;
+    }
+    &.tag--ip, &.tag--IP {
+        background-color: #D5DFE5;
+        color: #0B0033;
+    }
+    &.tag--filter {
+        background-color: $primary-focus;
+        color: $dark;
+        margin: 0 $spacing-03;
+    }
+    &.tag--long {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    &.tag--round {
+        display: inline-block;
+        border-radius: 50%;
+        height: 2.5rem;
+        width: 2.5rem;
+        padding: 0;
+        text-align: center;
+        font-size: .7rem;
+        line-height: 2.5rem;
+    }
+}

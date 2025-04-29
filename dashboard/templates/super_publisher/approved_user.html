@@ -1,0 +1,62 @@
+{% extends "super_publisher/awaiting_approval.html" %}
+
+{% block block_right %}
+<form method="post">
+
+    {% csrf_token %}
+    <button type="button" name="promote_user" class="btn btn-success" id="promote_user">
+        <span class="fas fa-chevron-up"></span>Promote to administrator level
+    </button>
+
+    <button type="button" name="deactivate_user" class="btn btn-error" id="deactivate_user">
+        <span class="fas fa-trash"></span>Deactivate
+    </button>
+
+    <div class="modal" id="reject_confirmation" style="display:none">
+        <div class="modal-background">
+            <div class="modal-content">
+                <h2><span class="fa fa-times close_modal"></span></h2>
+                <h2>After this action, Publisher User '<i>{{ auser.name }}</i>' will lose access to the JCS.</h2>
+                <p>Do you want to continue?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="deactivate" class="btn btn-success"><span class="fas fa-check"></span>Yes,
+                        continue.
+                    </button>
+                    <button type="button" name="cancel" class="btn btn-error close_modal"><span
+                            class="fas fa-ban"></span>No, cancel this operation.
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="promote_confirmation" style="display:none">
+        <div class="modal-background">
+            <div class="modal-content">
+                <h2><span class="fa fa-times close_modal"></span></h2>
+                <h2>After this action, Publisher User '<i>{{ auser.name }}</i>' will become a Publisher Administrator.</h2>
+                <p>Do you want to continue?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="promote" class="btn btn-success"><span class="fas fa-check"></span>Yes,
+                        continue.
+                    </button>
+                    <button type="button" name="cancel" class="btn btn-error close_modal"><span
+                            class="fas fa-ban"></span>No, cancel this operation.
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="card">
+    <div class="card-title">
+        <h2>Quick Tip</h2>
+        <h2><span class="far fa-lightbulb"></span></h2>
+    </div>
+    <p>Click on the email icon next to the email address to copy it!</p>
+</div>
+{% endblock block_right %}

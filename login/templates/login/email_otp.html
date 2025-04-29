@@ -1,0 +1,37 @@
+{% extends "layouts/fullscreen.html" %}
+{% load i18n viewflow material_frontend viewflow_frontend %}
+
+{% block title %} Sign in {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block block_tile %}
+
+{% include 'includes/messages.html' %}
+
+<h1>Please type in your One Time Passcode</h1>
+<p>Check your spam folder if you can not find it in your email inbox.</p>
+
+<form method="post" action="/login/verify-otp">
+
+    {% csrf_token %}
+    <!-- Form -->
+    <label for="email">Email OTP</label>
+    <div class="input-group">
+        {{ form.otp }}
+    </div>
+    <span class="text-error">{{ form.otp.errors }}</span>
+    <button type="submit" name="_continue" value="continue" class="btn btn-primary">Submit</button>
+</form>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="_continue" value="resend" class="btn btn-link navlink--bold">Resend email</button>
+
+</form>
+
+{% endblock block_tile %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
