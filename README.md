@@ -4,7 +4,7 @@ The Journal Comparison service was a [cOAlition S](https://www.coalition-s.org/)
 journal pricing and service information with institutions without sharing the information with each other.
 
 It enabled institutions to compare the services and prices of different publishers, and to make informed decisions
-about which publishers to work with.
+based on that information.
 
 The service was built and maintained in production by [Cottage Labs](https://cottagelabs.com) between 2022 and 2025,
 when the service was sunset.
